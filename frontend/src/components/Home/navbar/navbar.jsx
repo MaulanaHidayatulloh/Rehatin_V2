@@ -147,7 +147,7 @@ function NavbarCom({ onLogout }) {
               >
                 {userState && userState.foto ? (
                   <img
-                    src={`data:image/png;base64,${userState.foto}`}
+                    src={userState.foto}
                     alt="user"
                     className={styles.userPhoto}
                     style={{

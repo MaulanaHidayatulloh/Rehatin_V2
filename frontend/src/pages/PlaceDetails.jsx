@@ -95,11 +95,9 @@ const PlaceDetail = ({ user, isLoggedIn }) => {
       <div className="PlaceDetail">
         <div className="place_ket">
           <img
-            src={`data:image/png;base64,${place.gambarBase64}`}
+            src={place.gambar_path}
             alt={place.nama_tempat}
-            onClick={() =>
-              handleImageClick(`data:image/png;base64,${place.gambarBase64}`)
-            }
+            onClick={() => handleImageClick(place.gambar_path)}
             className="placeImage"
           />
           <div className="placeDetail_info">
@@ -114,10 +112,7 @@ const PlaceDetail = ({ user, isLoggedIn }) => {
 
         <div className="placeDetail_map">
           <a href={place.link_map} style={{ textDecoration: "none" }}>
-            <img
-              src={`data:image/png;base64,${place.gambarMapBase64}`}
-              alt={place.nama_tempat}
-            />
+            <img src={place.gambarMap} alt={place.nama_tempat} />
             <p>{place.lokasi}</p>
           </a>
         </div>
@@ -192,7 +187,7 @@ const PlaceDetail = ({ user, isLoggedIn }) => {
                   <div className="Kumpulanreview_profil">
                     {review.foto ? (
                       <img
-                        src={`data:image/png;base64,${review.foto}`}
+                        src={review.foto}
                         alt="user"
                         style={{
                           width: "50px",

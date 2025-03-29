@@ -19,11 +19,7 @@ const Profile = () => {
         <div className={styles.profileCard}>
           <div className={styles.profileHeader}>
             {user && user.foto ? (
-              <img
-                src={`data:image/png;base64,${user.foto}`}
-                alt="User"
-                className={styles.userPhoto}
-              />
+              <img src={user.foto} alt="User" className={styles.userPhoto} />
             ) : (
               <img
                 src="../public/logo/default.png"

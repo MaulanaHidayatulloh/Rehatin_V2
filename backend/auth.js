@@ -4,15 +4,17 @@ const bcrypt = require("bcrypt");
 const { body, validationResult } = require("express-validator");
 const multer = require("multer");
 const database = require("./model/database");
+const path = require("path");
+const fs = require("fs");
 
-// Middleware untuk mengunggah file menggunakan multer
-const storage = multer.memoryStorage();
+// Middleware untuk mengunggah file menggunakan multer ke folder uploads/users
+const storage = multer.diskStorage({
+  destination: "public/uploads/users/",
+  filename: (req, file, cb) => {
+    cb(null, `${Date.now()}_${file.originalname}`);
+  },
+});
 const upload = multer({ storage: storage });
-
-// Fungsi untuk mengonversi buffer ke Base64
-const encodeImageToBase64 = (buffer) => {
-  return buffer.toString("base64");
-};
 
 router.post(
   "/register",
@@ -30,15 +32,7 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const {
-      first_name,
-      last_name,
-      email,
-      password,
-      gender,
-      tanggal_lahir,
-      asal,
-    } = req.body;
+    const { first_name, last_name, email, password } = req.body;
 
     try {
       // Periksa apakah pengguna sudah ada
@@ -55,18 +49,8 @@ router.post(
 
       // Masukkan pengguna baru ke database
       const result = await database.query(
-        "INSERT INTO user (first_name, last_name, email, password, gender, tanggal_lahir, asal, foto, level, tanggal_daftar) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())",
-        [
-          first_name,
-          last_name,
-          email,
-          hashedPassword,
-          gender,
-          tanggal_lahir,
-          asal,
-          Buffer.alloc(0),
-          1,
-        ]
+        "INSERT INTO user (first_name, last_name, email, password, level, tanggal_daftar) VALUES (?, ?, ?, ?, ?, NOW())",
+        [first_name, last_name, email, hashedPassword, 2]
       );
 
       if (result.affectedRows === 1) {
@@ -83,6 +67,7 @@ router.post(
   }
 );
 
+// Login user
 router.post(
   "/login",
   [
@@ -98,7 +83,7 @@ router.post(
     const { email, password } = req.body;
 
     try {
-      // Temukan pengguna berdasarkan email
+      // Cari pengguna berdasarkan email
       const [users] = await database.query(
         "SELECT * FROM user WHERE email = ?",
         [email]
@@ -119,11 +104,10 @@ router.post(
           .json({ error: "Email atau kata sandi tidak valid" });
       }
 
-      // Encode gambar ke Base64
-      let fotoBase64 = null;
-      if (user.foto) {
-        fotoBase64 = encodeImageToBase64(user.foto);
-      }
+      // Path gambar
+      let fotoPath = user.foto
+        ? `http://localhost:8000/uploads/users/${user.foto}`
+        : null;
 
       // Format tanggal lahir
       const birthDate = new Date(user.tanggal_lahir);
@@ -136,7 +120,7 @@ router.post(
         id: user.id,
         email: user.email,
         first_name: user.first_name,
-        foto: fotoBase64,
+        foto: fotoPath,
         last_name: user.last_name,
         gender: user.gender,
         tanggal_daftar: user.tanggal_daftar,
@@ -150,7 +134,7 @@ router.post(
           email: user.email,
           first_name: user.first_name,
           last_name: user.last_name,
-          foto: fotoBase64,
+          foto: fotoPath,
           gender: user.gender,
           tanggal_daftar: user.tanggal_daftar,
           tanggal_lahir: formattedBirthDate,
@@ -158,8 +142,8 @@ router.post(
         },
       });
     } catch (error) {
-      console.error("Error saat login:", error);
-      return res.status(500).json({ error: "Terjadi kesalahan pada server" });
+      console.error("Error saat login:", error.message);
+      return res.status(500).json({ error: error.message });
     }
   }
 );
@@ -174,14 +158,25 @@ router.post("/logout", (req, res) => {
   });
 });
 
+// Update profil pengguna
 router.put("/user/:id", upload.single("photo"), async (req, res) => {
   const userId = req.params.id;
   const updatedUserData = req.body;
-  const photo = req.file ? req.file.buffer : null;
+  const photo = req.file ? req.file.filename : null;
 
   try {
-    let query = `UPDATE user 
-                 SET first_name = ?, last_name = ?, email = ?, gender = ?, tanggal_lahir = ?, asal = ?`;
+    // Ambil data user lama
+    const [users] = await database.query("SELECT foto FROM user WHERE id = ?", [
+      userId,
+    ]);
+    if (users.length === 0) {
+      return res.status(404).json({ error: "User tidak ditemukan" });
+    }
+
+    let fotoLama = users[0].foto;
+    let fotoBaru = photo ? photo : fotoLama;
+
+    let query = `UPDATE user SET first_name = ?, last_name = ?, email = ?, gender = ?, tanggal_lahir = ?, asal = ?, foto = ? WHERE id = ?`;
     let queryParams = [
       updatedUserData.first_name,
       updatedUserData.last_name,
@@ -189,19 +184,19 @@ router.put("/user/:id", upload.single("photo"), async (req, res) => {
       updatedUserData.gender,
       updatedUserData.tanggal_lahir,
       updatedUserData.asal,
+      fotoBaru,
       userId,
     ];
 
-    // Jika ada foto baru, tambahkan ke query dan parameter
-    if (photo) {
-      query += ", foto = ?";
-      queryParams.splice(queryParams.length - 1, 0, photo); // Sisipkan foto sebelum userId
-    }
-
-    query += " WHERE id = ?";
-
-    // Update data pengguna di database
     await database.query(query, queryParams);
+
+    // Hapus foto lama jika diganti
+    if (photo && fotoLama) {
+      const oldPhotoPath = path.join("public/uploads/users/", fotoLama);
+      if (fs.existsSync(oldPhotoPath)) {
+        fs.unlinkSync(oldPhotoPath);
+      }
+    }
 
     return res
       .status(200)

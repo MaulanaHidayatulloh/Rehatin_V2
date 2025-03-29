@@ -117,10 +117,7 @@ const SearchResults = () => {
               <div className="place-card" key={place.id_tempat}>
                 <Link to={`/places/${place.id_tempat}`} className="link_tempat">
                   <div className="place_gambar">
-                    <img
-                      src={`data:image/png;base64,${place.gambarBase64}`}
-                      alt={place.nama_tempat}
-                    />
+                    <img src={place.gambar_path} alt={place.nama_tempat} />
                     <div
                       className="place_love"
                       onClick={(e) => {

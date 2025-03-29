@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { StarHalf, StarFill, HeartFill } from "react-bootstrap-icons";
-import { GeoAltFill } from "react-bootstrap-icons";
+import {
+  StarHalf,
+  StarFill,
+  HeartFill,
+  GeoAltFill,
+} from "react-bootstrap-icons";
 import "./place.css";
 import FilterComponent from "./FilterComponent";
 
@@ -13,7 +17,7 @@ const Jakarta = () => {
   const [wishlist, setWishlist] = useState([]);
 
   useEffect(() => {
-    // Load wishlist from localStorage
+    // Load wishlist dari localStorage
     const savedWishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
     setWishlist(savedWishlist);
 
@@ -22,7 +26,7 @@ const Jakarta = () => {
       .then((response) => {
         const updatedPlaces = response.data.map((place) => {
           const words = place.deskripsi.split(" ");
-          const shortenedDescription = words.slice(0, 10).join(" "); // Mengambil 10 kata pertama
+          const shortenedDescription = words.slice(0, 10).join(" "); // Ambil 10 kata pertama
           return {
             ...place,
             deskripsi: shortenedDescription,
@@ -97,10 +101,7 @@ const Jakarta = () => {
               <div className="place-card" key={place.id_tempat}>
                 <Link to={`/places/${place.id_tempat}`} className="link_tempat">
                   <div className="place_gambar">
-                    <img
-                      src={`data:image/png;base64,${place.gambarBase64}`}
-                      alt={place.nama_tempat}
-                    />
+                    <img src={place.gambar_path} alt={place.nama_tempat} />
                     <div
                       className="place_love"
                       onClick={(e) => {
