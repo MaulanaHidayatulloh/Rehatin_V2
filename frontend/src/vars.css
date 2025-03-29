@@ -1,0 +1,12 @@
+:root {
+  /* Colours */
+  --color-text: #5b5555;
+  --color-primary: #4be4c5;
+  --color-secondary: #c8f6ed;
+  --color-Thrid: #2daf94;
+  --color-Fourth: #3ec8ac;
+  --color-Fifth: #468392;
+  --color-bg: #fff;
+  --color-hover: #215a68;
+  --color-section: rgba(200, 246, 237, 0.3);
+}

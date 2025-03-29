@@ -1,0 +1,329 @@
+@import "../../../vars.css";
+
+.popular-section {
+  padding: 50px;
+  padding-bottom: 100px;
+}
+
+.popular-title {
+  display: flex;
+  align-items: center;
+  margin-bottom: 3rem;
+  padding-left: 0.7rem;
+  gap: 1.5rem;
+}
+
+.popular-title h2 {
+  font-weight: bold;
+  font-size: 2rem;
+  margin: 0;
+}
+
+.popular-list {
+  display: flex;
+  overflow-x: auto;
+  padding: 0 10px;
+  margin: 0 50px;
+  padding-bottom: 40px;
+  gap: 30px;
+}
+
+.popular-card {
+  flex: 0 0 auto;
+  width: 400px;
+  border-radius: 20px;
+  background-color: var(--color-bg);
+  cursor: pointer;
+  border: 1px solid #C4C4C4;
+}
+
+.popularCard_title {
+  position: relative;
+}
+
+.popularCard_title p {
+  top: 5%;
+  left: 5%;
+  position: absolute;
+  padding: 5px 20px;
+  background-color: #fff;
+  border-radius: 10px;
+}
+
+.popularCard_title img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px 10px 0 0;
+  padding-bottom: 10px;
+}
+
+.popular-card-caption {
+  padding: 10px 30px;
+  text-align: left;
+}
+
+.popular-card-caption h3 {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.popular-card-caption p {
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+}
+
+.star-full {
+  margin: 0 0.2rem;
+  font-size: 1.5rem;
+  color: gold;
+}
+
+.star-half {
+  margin: 0 0.2rem;
+  font-size: 1.5rem;
+  color: gold;
+}
+
+#popular_harga {
+  font-size: 0.8rem;
+  color: var(--color-text);
+}
+
+#popular_visit {
+  font-weight: bold;
+}
+
+@media screen and (max-width: 1024px) {  
+  .popular-card {
+    width: 380px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .popular-section {
+    padding: 50px;
+  }
+  
+  .popular-title {
+    margin-bottom: 3rem;
+    padding-left: 0.7rem;
+    gap: 1.5rem;
+  }
+  
+  .popular-title h2 {
+    font-weight: bold;
+    font-size: 22px;
+    margin: 0;
+  }
+  
+  .popular-list {
+    padding: 0 10px;
+    margin: 0 50px;
+    padding-bottom: 40px;
+    gap: 30px;
+  }
+  
+  .popular-card {
+    width: 250px;
+    border-radius: 20px;
+  }
+  
+  .popularCard_title p {
+    padding: 5px 20px;
+    border-radius: 10px;
+    font-size: 0.7rem;
+  }
+  
+  .popularCard_title img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px 10px 0 0;
+    padding-bottom: 10px;
+  }
+  
+  .popular-card-caption {
+    padding: 10px 30px;
+    text-align: left;
+  }
+  
+  .popular-card-caption h3 {
+    font-size: 15px;
+    font-weight: bold;
+  }
+  
+  .popular-card-caption p {
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+  }
+  
+  .star-full {
+    margin: 0 0.2rem;
+    font-size: 1.5rem;
+    color: gold;
+  }
+  
+  .star-half {
+    margin: 0 0.2rem;
+    font-size: 1.5rem;
+  }
+  
+  #popular_harga {
+    font-size: 0.6rem;
+  }
+  
+  #popular_visit {
+    font-weight: bold;
+    font-size: 10px;
+  }
+}
+
+@media screen and (max-width: 426px) {
+  .popular-section {
+    padding: 2rem;
+  }
+  
+  .popular-title {
+    margin-bottom: 2rem;
+    padding-left: 0.7rem;
+    gap: 1rem;
+  }
+  
+  .popular-title h2 {
+    font-weight: bold;
+    font-size: 15px;
+    margin: 0;
+  }
+
+  .popular-title img {
+    width: 30px;
+  }
+  
+  .popular-list {
+    padding: 0 10px;
+    margin: 0 50px;
+    padding-bottom: 40px;
+    gap: 30px;
+  }
+  
+  .popular-card {
+    width: 230px;
+    border-radius: 20px;
+  }
+  
+  .popularCard_title p {
+    padding: 5px 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    font-size: 0.6rem;
+  }
+  
+  .popularCard_title img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px 10px 0 0;
+    padding-bottom: 10px;
+  }
+  
+  .popular-card-caption {
+    padding: 10px 30px;
+    text-align: left;
+  }
+  
+  .popular-card-caption h3 {
+    font-size: 13px;
+    font-weight: bold;
+  }
+  
+  .popular-card-caption p {
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+  }
+
+  .popular-card-caption svg {
+    width: 15px;
+  }
+  
+  #popular_harga {
+    font-size: 0.6rem;
+  }
+  
+  #popular_visit {
+    font-weight: bold;
+    font-size: 8px;
+  }
+}
+
+@media screen and (max-width: 321px) {
+  .popular-section {
+    padding: 2rem;
+  }
+  
+  .popular-title {
+    margin-bottom: 2rem;
+    padding-left: 0.7rem;
+    gap: 1rem;
+  }
+  
+  .popular-title h2 {
+    font-weight: bold;
+    font-size: 13px;
+    margin: 0;
+  }
+
+  .popular-title img {
+    width: 20px;
+  }
+  
+  .popular-list {
+    padding: 0 10px;
+    margin: 0 40px;
+    padding-bottom: 40px;
+    gap: 30px;
+  }
+  
+  .popular-card {
+    width: 150px;
+    border-radius: 20px;
+  }
+  
+  .popularCard_title p {
+    padding: 5px 10px;
+    border-radius: 10px;
+    font-size: 0.4rem;
+  }
+  
+  .popularCard_title img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px 10px 0 0;
+    padding-bottom: 10px;
+  }
+  
+  .popular-card-caption {
+    padding: 10px 20px;
+    text-align: left;
+  }
+  
+  .popular-card-caption h3 {
+    font-size: 13px;
+    font-weight: bold;
+  }
+  
+  .popular-card-caption p {
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+  }
+
+  .popular-card-caption svg {
+    width: 10px;
+  }
+  
+  #popular_harga {
+    font-size: 0.5rem;
+  }
+  
+  #popular_visit {
+    font-weight: bold;
+    font-size: 6px;
+  }
+} 

@@ -1,0 +1,41 @@
+@import "../../../vars.css";
+
+.recommendation-event {
+  padding-top: 20px;
+  margin-bottom: 4rem;
+}
+
+.recommendationEvent-title {
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+.recommendationEvent-card {
+  width: auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  margin: 0 auto;
+  position: relative;
+  padding: 40px;
+}
+
+.recommendationEvent-image {
+  width: 100%;
+  height: auto;
+}
+
+.recommendationEvent-details {
+  position: absolute;
+  bottom: 75px;
+  left: 75px;
+  color: var(--color-bg);
+}
+
+.recommendationEvent-details h4 {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: bold;
+}

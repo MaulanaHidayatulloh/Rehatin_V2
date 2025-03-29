@@ -1,0 +1,78 @@
+@import "../vars.css";
+
+.profileContainer {
+  padding: 10rem 70px 5rem 70px;
+}
+
+.profileTitle {
+  display: flex;
+  justify-content: space-between;
+  background-color: var(--color-Fifth);
+  padding: 2rem 2.5rem;
+  align-items: center;
+  color: var(--color-bg);
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+
+.profileTitle h2 {
+  font-weight: bold;
+  letter-spacing: 4px;
+}
+
+.editProfileButton {
+  text-decoration: none;
+  color: var(--color-bg);
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.editProfileButton:hover {
+  color: #000;
+}
+
+.profileCard {
+  background-color: #ecf0f5;
+  border: 2px solid #c4c4c4;
+  padding: 2.5rem 2.5rem 4rem 2.5rem;
+  text-align: left;
+}
+
+.profileHeader {
+  width: 100%;
+  height: 500px;
+}
+
+.profileHeader img {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  border: 1px solid #c4c4c4;
+}
+
+.profileData {
+  padding-top: 2rem;
+}
+
+.profileData h3 {
+  font-weight: bold;
+  color: var(--color-Fifth);
+  margin-bottom: 2rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #c4c4c4;
+}
+
+.profileItem {
+  font-size: 1.2rem;
+  padding: 0.5rem 0;
+}
+
+.profileItem label {
+  width: 20%;
+}
+
+.profileItem input {
+  margin-left: 1.5rem;
+  background-color: transparent;
+  border: none;
+}

@@ -1,0 +1,361 @@
+@import "../../../vars.css";
+
+.recommendation-section {
+  padding: 50px;
+  padding-bottom: 100px;
+}
+
+.recommendation-title {
+  display: flex;
+  align-items: center;
+  margin-bottom: 3rem;
+  padding-left: 0.7rem;
+  gap: 1.5rem;
+}
+
+.recommendation-title h2 {
+  font-weight: bold;
+  font-size: 2rem;
+}
+
+.recommendation-tabs {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 50px;
+}
+
+.recommendation-tab {
+  padding: 10px 20px;
+  margin: 0 10px;
+  background-color: transparent;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1rem;
+  color: var(--color-Fifth);
+}
+
+.recommendation-tab:hover {
+  color: var(--color-Fifth);
+}
+
+.recommendation-tab.active {
+  background-color: var(--color-Fifth);
+  color: #fff;
+}
+
+.recommendation-list {
+  display: flex;
+  overflow-x: auto;
+  padding: 0 10px;
+  padding-bottom: 40px;
+  gap: 50px;
+}
+
+.recommendation-card {
+  flex: 0 0 auto;
+  width: 230px;
+  border-radius: 20px;
+  border: 1px solid #C4C4C4;
+  background-color: var(--color-bg);
+  cursor: pointer;
+}
+
+.recommendation-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 20px 20px 0 0;
+  padding-bottom: 10px;
+}
+
+.recommendation-card-caption {
+  padding: 10px;
+  text-align: left;
+}
+
+.recommendation-card-caption h3 {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.recommendation-card-caption p {
+  font-size: 1.5rem;
+  color: gold;
+  letter-spacing: 0.2em;
+}
+
+.star-full {
+  margin: 0 0.2rem;
+}
+
+.star-half {
+  margin: 0 0.2rem;
+}
+
+#recommendation_harga {
+  font-size: 0.8rem;
+  color: var(--color-text);
+}
+
+@media screen and (max-width: 768px) {
+  .recommendation-section {
+    padding: 50px;
+    padding-bottom: 80px;
+  }
+  
+  .recommendation-title {
+    margin-bottom: 1.5rem;
+    padding-left: 0.7rem;
+    gap: 1rem;
+  }
+  
+  .recommendation-title h2 {
+    font-weight: bold;
+    font-size: 22px;
+  }
+  
+  .recommendation-tabs {
+    margin-bottom: 40px;
+  }
+  
+  .recommendation-tab {
+    padding: 6px 16px;
+    margin: 0 5px;
+    background-color: transparent;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 13px;
+  }
+  
+  .recommendation-list {
+    display: flex;
+    overflow-x: auto;
+    padding: 0 10px;
+    padding-bottom: 40px;
+    padding-left: 55px;
+    gap: 50px;
+  }
+  
+  .recommendation-card {
+    flex: 0 0 auto;
+    width: 200px;
+    border-radius: 20px;
+    border: 1px solid #C4C4C4;
+    cursor: pointer;
+  }
+  
+  .recommendation-card img {
+    width: 100%;
+    height: auto;
+    padding-bottom: 10px;
+  }
+  
+  .recommendation-card-caption {
+    padding: 6px 10px;
+    text-align: left;
+  }
+  
+  .recommendation-card-caption h3 {
+    font-size: 14px;
+    font-weight: bold;
+  }
+  
+  .recommendation-card-caption p {
+    font-size: 1rem;
+    color: gold;
+    letter-spacing: 0.2em;
+  }
+  
+  .star-full {
+    margin: 0 0.2rem;
+  }
+  
+  .star-half {
+    margin: 0 0.2rem;
+  }
+  
+  #recommendation_harga {
+    font-size: 0.6rem;
+  }
+}
+
+@media screen and (max-width: 426px) {
+  .recommendation-section {
+    padding: 30px;
+    padding-bottom: 80px;
+  }
+  
+  .recommendation-title {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-left: 0rem;
+    gap: 0.8rem;
+  }
+  
+  .recommendation-title h2 {
+    font-weight: bold;
+    font-size: 15px;
+    text-align: left;
+  }
+
+  .recommendation-title img {
+    width: 30px;
+  }
+  
+  .recommendation-tabs {
+    margin-bottom: 30px;
+    margin-left: 35px;
+  }
+  
+  .recommendation-tab {
+    padding: 3px 13px;
+    margin: 0 1px;
+    border-radius: 5px;
+    font-size: 6px;
+  }
+  
+  .recommendation-list {
+    padding: 0 10px;
+    padding-bottom: 40px;
+    padding-left: 40px;
+    gap: 20px;
+  }
+  
+  .recommendation-card {
+    flex: 0 0 auto;
+    width: 140px;
+    border-radius: 20px;
+    border: 1px solid #C4C4C4;
+  }
+  
+  .recommendation-card img {
+    width: 100%;
+    height: auto;
+    padding-bottom: 10px;
+  }
+  
+  .recommendation-card-caption {
+    padding: 6px 10px;
+    text-align: left;
+  }
+  
+  .recommendation-card-caption h3 {
+    font-size: 14px;
+    font-weight: bold;
+  }
+  
+  .recommendation-card-caption p {
+    font-size: 1rem;
+    color: gold;
+    letter-spacing: 0.1em;
+  }
+
+  .recommendation-card-caption p svg {
+    width: 14px;
+  }
+  
+  .star-full {
+    margin: 0 0.1rem;
+  }
+  
+  .star-half {
+    margin: 0 0.1rem;
+  }
+  
+  #recommendation_harga {
+    font-size: 0.6rem;
+  }
+}
+
+@media screen and (max-width: 321px) {
+  .recommendation-section {
+    padding: 30px;
+    padding-bottom: 40px;
+  }
+  
+  .recommendation-title {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-left: 0rem;
+    gap: 0.8rem;
+  }
+  
+  .recommendation-title h2 {
+    font-weight: bold;
+    font-size: 13px;
+    text-align: left;
+  }
+
+  .recommendation-title img {
+    width: 20px;
+  }
+  
+  .recommendation-tabs {
+    margin-bottom: 30px;
+    margin-left: 35px;
+  }
+  
+  .recommendation-tab {
+    padding: 3px 7px;
+    margin: 0 1px;
+    border-radius: 5px;
+    font-size: 6px;
+  }
+  
+  .recommendation-list {
+    padding: 0 10px;
+    padding-bottom: 40px;
+    padding-left: 25px;
+    gap: 20px;
+  }
+  
+  .recommendation-card {
+    flex: 0 0 auto;
+    width: 100px;
+    border-radius: 20px;
+    border: 1px solid #C4C4C4;
+  }
+  
+  .recommendation-card img {
+    width: 100%;
+    height: auto;
+    padding-bottom: 10px;
+  }
+  
+  .recommendation-card-caption {
+    padding: 6px 10px;
+    text-align: left;
+  }
+  
+  .recommendation-card-caption h3 {
+    font-size: 10px;
+    font-weight: bold;
+    margin-bottom: 0.1rem;
+  }
+  
+  .recommendation-card-caption p {
+    font-size: 0.5rem;
+    color: gold;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.4rem;
+  }
+
+  .recommendation-card-caption p svg {
+    width: 8px;
+  }
+  
+  .star-full {
+    margin: 0 0rem;
+  }
+  
+  .star-half {
+    margin: 0 0rem;
+  }
+  
+  #recommendation_harga {
+    font-size: 0.6rem;
+  }
+}

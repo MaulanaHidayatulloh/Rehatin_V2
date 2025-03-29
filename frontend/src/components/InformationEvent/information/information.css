@@ -1,0 +1,35 @@
+@import "../../../vars.css";
+
+.event-card {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  margin-bottom: 20px;
+  margin-top: 50px;
+}
+
+.event-image {
+  width: 100%;
+  height: auto;
+}
+
+.event-details {
+  padding: 50px;
+  text-align: left;
+  text-align: justify;
+}
+
+.event-details h2 {
+  margin-top: 30px;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.event-details p {
+  font-size: 1.35rem;
+}
+
+.calendarEvent,
+.mapEvent {
+  margin-right: 5px;
+}

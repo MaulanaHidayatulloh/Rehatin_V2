@@ -1,0 +1,263 @@
+@import "../../../vars.css";
+
+.menu {
+  margin-top: 5rem;
+  padding: 0;
+}
+
+.menu_title {
+  display: flex;
+  align-items: center;
+  padding-left: 3.5rem;
+  margin-bottom: 3rem;
+  gap: 1.5rem;
+}
+
+.menu h2 {
+  font-weight: 600;
+  margin-top: 1rem;
+}
+
+.menu-card h3 {
+  color: var(--color-bg);
+  font-weight: 600;
+  font-size: 2.5rem;
+  letter-spacing: 0.15em;
+}
+
+.menu-card p {
+  color: var(--color-bg);
+}
+
+.menu .row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  gap: 2em;
+  margin: 0 7rem;
+  padding-bottom: 6rem;
+}
+
+.menu-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4.3rem 0;
+  border-radius: 1.4rem;
+  text-decoration: none;
+}
+
+#jakarta {
+  background-image: url(../src/assets/Home/city/jakarta.png);
+  background-size: 100%;
+  background-repeat: no-repeat;
+}
+
+#bogor {
+  background-image: url(../src/assets/Home/city/bogor.png);
+  background-size: 100%;
+  background-repeat: no-repeat;
+}
+
+#depok {
+  background-image: url(../src/assets/Home/city/depok.png);
+  background-size: 100%;
+  background-repeat: no-repeat;
+}
+
+#tangerang {
+  background-image: url(../src/assets/Home/city/tangerang.png);
+  background-size: 100%;
+  background-repeat: no-repeat;
+}
+
+#bekasi {
+  background-image: url(../src/assets/Home/city/bekasi.png);
+  background-size: 100%;
+  background-repeat: no-repeat;
+}
+
+#bandung {
+  background-image: url(../src/assets/Home/city/bandung.png);
+  background-size: 100%;
+  background-repeat: no-repeat;
+}
+
+.menu-card:hover {
+  transform: scale(1.12);
+}
+
+@media screen and (max-width: 1024px) {
+  .menu {
+    margin-top: 3.5rem;
+    padding: 0;
+  }
+  
+  .menu_title {
+    padding-left: 3.5rem;
+    margin-bottom: 3rem;
+    gap: 1.3rem;
+  }
+  
+  .menu h2 {
+    font-weight: 600;
+    margin-top: 1rem;
+  }
+  
+  .menu-card h3 {
+    font-weight: 600;
+    font-size: 2.5rem;
+    letter-spacing: 0.15em;
+  }
+
+  .menu .row {
+    gap: 2em;
+    margin: 0 7rem;
+    padding-bottom: 6rem;
+  }
+  
+  .menu-card {
+    padding: 4.3rem 0;
+    border-radius: 1.4rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .menu {
+    margin-top: 3.5rem;
+    padding: 0;
+  }
+  
+  .menu_title {
+    padding-left: 3rem;
+    margin-bottom: 3rem;
+    gap: 1.5rem;
+  }
+  
+  .menu h2 {
+    font-weight: 600;
+    font-size: 22px;
+    margin-top: 1rem;
+  }
+  
+  .menu-card h3 {
+    font-size: 2.2rem;
+    letter-spacing: 0.15em;
+  }
+  
+  .menu-card p {
+    color: var(--color-bg);
+    font-size: 0.9rem;
+  }
+  
+  .menu .row {
+    gap: 1.5em;
+    margin: 0 8rem;
+    padding-bottom: 6rem;
+  }
+  
+  .menu-card {
+    padding: 4.3rem 0;
+    border-radius: 1.4rem;
+  }
+}
+
+@media screen and (max-width: 426px) {
+  .menu {
+    margin-top: 2rem;
+    padding: 1rem;
+  }
+  
+  .menu_title {
+    padding-left: 2rem;
+    margin-bottom: 1rem;
+    gap: 20px;
+  }
+
+  .menu_title img {
+    width: 30px;
+  }
+  
+  .menu h2 {
+    font-weight: 600;
+    font-size: 15px;
+    margin-top: 1rem;
+    text-align: left;
+  }
+  
+  .menu-card h3 {
+    font-size: 1.2rem;
+    letter-spacing: 0.15em;
+  }
+  
+  .menu-card p {
+    font-size: 0.5rem;
+  }
+  
+  .menu .row {
+    gap: 1.5em;
+    margin: 0 5rem;
+    padding-bottom: 3rem;
+  }
+  
+  .menu-card {
+    padding: 2.8rem 0rem;
+    width: fit-content;
+    border-radius: 1.4rem;
+  }
+
+  #jakarta, #bogor, #depok,
+  #tangerang, #bekasi, #bandung {
+    width: 80%;
+  }
+}
+
+@media screen and (max-width: 321px) {
+  .menu {
+    margin-top: 0.5rem;
+    padding: 0;
+  }
+  
+  .menu_title {
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+    gap: 20px;
+  }
+
+  .menu_title img {
+    width: 20px;
+  }
+  
+  .menu h2 {
+    font-weight: 600;
+    font-size: 13px;
+    margin-top: 1rem;
+    text-align: left;
+  }
+  
+  .menu-card h3 {
+    font-size: 1rem;
+    letter-spacing: 0.15em;
+    margin-bottom: 0.2rem;
+  }
+  
+  .menu-card p {
+    font-size: 0.5rem;
+    margin-bottom: 0rem;
+  }
+  
+  .menu .row {
+    gap: 1em;
+    margin: 0 3.5rem;
+    padding-bottom: 3rem;
+  }
+  
+  .menu-card {
+    padding: 2rem 0rem;
+    width: fit-content;
+  }
+
+  #jakarta, #bogor, #depok,
+  #tangerang, #bekasi, #bandung {
+    width: 60%;
+  }
+}
