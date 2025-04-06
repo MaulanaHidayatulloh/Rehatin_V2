@@ -15,7 +15,7 @@ router.get("/", async (req, res) => {
         th.gambar_path, 
         AVG(up.rating) as average_rating
       FROM 
-        tempat_hangout th 
+        tempat_wisata th 
       JOIN 
         ulasan_pengguna up 
       ON 

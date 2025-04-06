@@ -15,7 +15,7 @@ router.get("/:id", async (req, res) => {
     // Fetch place details
     const [placeResults] = await database.query(
       `SELECT id_tempat, nama_tempat, kategori_lokasi, lokasi, harga, deskripsi, gambar_path, gambar_map, link_map
-      FROM tempat_hangout WHERE id_tempat = ?;`,
+      FROM tempat_wisata WHERE id_tempat = ?;`,
       [id]
     );
 
@@ -86,11 +86,43 @@ router.post("/:id/review", authMiddleware, async (req, res) => {
   }
 
   try {
+    // 1. Menambahkan ulasan baru
     await database.query(
       "INSERT INTO ulasan_pengguna (tempat_id, id_user, rating, ulasan) VALUES (?, ?, ?, ?);",
       [id, userId, rating, ulasan]
     );
 
+    try {
+      const [avgResults] = await database.query(
+        "SELECT AVG(rating) AS avgRating FROM ulasan_pengguna WHERE tempat_id = ?;",
+        [id]
+      );
+
+      const avgRating = parseFloat(avgResults[0].avgRating) || 0;
+      console.log("Avg Rating:", avgRating); // Debug
+
+      await database.query(
+        "UPDATE tempat_wisata SET rating = ? WHERE id_tempat = ?;",
+        [avgRating.toFixed(2), id]
+      );
+    } catch (err) {
+      console.error("Gagal update rating:", err.message); // Debug log
+    }
+
+    // // 2. Hitung rata-rata rating terbaru
+    // const [avgResults] = await database.query(
+    //   "SELECT AVG(rating) AS avgRating FROM ulasan_pengguna WHERE tempat_id = ?;",
+    //   [id]
+    // );
+    // const avgRating = avgResults[0].avgRating || 0;
+
+    // // 3. Update kolom `rating` di tabel `tempat_wisata`
+    // await database.query(
+    //   "UPDATE tempat_wisata SET rating = ? WHERE id_tempat = ?;",
+    //   [avgRating.toFixed(2), id]
+    // );
+
+    // 4. Ambil review baru untuk dikirim ke frontend
     const [newReviewResults] = await database.query(
       "SELECT up.rating, up.ulasan, u.first_name, u.last_name, u.foto FROM ulasan_pengguna up JOIN user u ON up.id_user = u.id WHERE up.tempat_id = ? AND up.id_user = ?;",
       [id, userId]

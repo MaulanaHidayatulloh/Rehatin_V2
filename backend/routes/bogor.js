@@ -2,16 +2,6 @@ const express = require("express");
 const router = express.Router();
 const database = require("../model/database");
 
-function handleError(err, res) {
-  console.error("Error:", err);
-  res.status(500).json({ error: "Terjadi kesalahan pada server" });
-}
-
-// Fungsi untuk mengencode gambar ke base64
-function encodeImageToBase64(imageData) {
-  return Buffer.from(imageData).toString("base64");
-}
-
 // Route handler for GET /bogor
 router.get("/", async (req, res) => {
   try {
@@ -23,10 +13,10 @@ router.get("/", async (req, res) => {
         th.lokasi, 
         th.harga, 
         th.deskripsi, 
-        th.gambar,
+        th.gambar_path,
         AVG(up.rating) as average_rating
       FROM 
-        tempat_hangout th 
+        tempat_wisata th 
       JOIN 
         ulasan_pengguna up 
       ON 
@@ -37,20 +27,20 @@ router.get("/", async (req, res) => {
         th.id_tempat;
     `);
 
-    const places = results.map((place) => {
-      // Mengencode gambar longblob ke base64
-      const imageDataBase64 = encodeImageToBase64(place.gambar);
-      return {
-        ...place,
-        gambarBase64: imageDataBase64,
-        average_rating: parseFloat(place.average_rating).toFixed(1),
-      };
-    });
+    const places = results.map((place) => ({
+      ...place,
+      average_rating: parseFloat(place.average_rating).toFixed(1),
+      gambar_path: `http://localhost:8000/uploads/${place.gambar_path}`, // Path gambar otomatis
+    }));
 
     res.json(places);
   } catch (err) {
-    handleError(err, res); // Call the error handler from server.js
+    console.error("Error:", err);
+    res.status(500).json({ error: "Terjadi kesalahan pada server" });
   }
 });
+
+// Middleware untuk menyajikan gambar dari folder /public/uploads
+router.use("/uploads", express.static("public/uploads"));
 
 module.exports = router;

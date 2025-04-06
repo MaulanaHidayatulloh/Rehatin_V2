@@ -23,6 +23,8 @@ import NavbarCom from "./components/Home/navbar/navbar";
 import Profile from "./pages/Profile";
 import EditProfile from "./pages/EditProfile";
 import KategoriTempat from "./pages/Places/KategoriTempat-Pages";
+import { BubbleChat } from "flowise-embed-react";
+import { Display } from "react-bootstrap-icons";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(
@@ -86,6 +88,57 @@ function App() {
           />
         </Routes>
       </Router>
+      <BubbleChat
+        chatflowid="70922b7f-3bfb-4d33-a0a9-ddbea0278340"
+        apiHost="http://localhost:3000"
+        theme={{
+          button: {
+            backgroundColor: "#2daf94",
+            right: 40,
+            bottom: 27,
+            size: 70,
+          },
+          chatWindow: {
+            showTitle: true,
+            showAgentMessages: true,
+            title: "ChatBot Rehatin",
+            welcomeMessage: "Hallo, Ada yang bisa saya bantu?",
+            errorMessage: "mohon maaf, saya tidak tau!",
+            backgroundColor: "#ffffff",
+            fontSize: 17,
+            starterPrompts: [
+              "tempat wisata terbaik di Jakarta",
+              "tempat wisata dengan rating tertinggi",
+            ],
+            starterPromptFontSize: 15,
+            clearChatOnReload: true,
+            renderHTML: true,
+            textInput: {
+              placeholder: "Ketik yang ingin ditanyakan!",
+              backgroundColor: "#F3F8FF",
+              textColor: "#303235",
+              sendButtonColor: "#2daf94",
+              maxChars: 100,
+              maxCharsWarningMessage:
+                "Anda telah melampaui batas karakter. Harap masukkan kurang dari 100 karakter.",
+              autoFocus: true,
+            },
+            feedback: {
+              color: "#303235",
+            },
+            dateTimeToggle: {
+              date: true,
+              time: true,
+            },
+            footer: {
+              textColor: "#303235",
+              text: "Dirancang Oleh",
+              company: "Maulana",
+              companyLink: "https://github.com/MaulanaHidayatulloh",
+            },
+          },
+        }}
+      />
     </div>
   );
 }

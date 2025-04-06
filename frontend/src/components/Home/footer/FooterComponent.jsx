@@ -3,13 +3,13 @@ import Navbar from "react-bootstrap/Navbar";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { Link } from "react-router-dom";
-import Subscribe from "./subscribe";
+// import Subscribe from "./subscribe";
 import "./footer.css";
 
 function Footer() {
   return (
     <div>
-      <Subscribe />
+      {/* <Subscribe /> */}
       <div className="footer-page">
         <Navbar className="sec-footer">
           <Container>

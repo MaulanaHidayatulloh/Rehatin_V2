@@ -49,16 +49,6 @@ function KategoriTempat() {
     setActiveLocation(locationId);
   }, [locationId]);
 
-  // Fungsi untuk mengonversi buffer gambar ke base64 string
-  const bufferToBase64 = (buffer) => {
-    let binary = "";
-    let bytes = new Uint8Array(buffer);
-    for (let i = 0; i < bytes.byteLength; i++) {
-      binary += String.fromCharCode(bytes[i]);
-    }
-    return window.btoa(binary);
-  };
-
   return (
     <section>
       <div className="KategoriTempat-container">
@@ -80,23 +70,21 @@ function KategoriTempat() {
         <div className="Kategoriplaces-grid">
           {places.length > 0 ? (
             places.map((place) => {
-              // Mengonversi buffer ke base64 string
-              const base64Image = `data:image/jpeg;base64,${bufferToBase64(
-                place.gambar.data
-              )}`;
+              // gambar_path
+              const gambar_path = `http://localhost:8000/uploads/${place.gambar_path}`;
               return (
                 <Link
                   to={`/places/${place.id_tempat}`}
                   key={`place-${place.id_tempat}`}
                   className="Kategoriplace-card"
                 >
-                  <img src={base64Image} alt={place.nama_tempat} />
+                  <img src={gambar_path} alt={place.nama_tempat} />
                   <h3>{place.nama_tempat}</h3>
                 </Link>
               );
             })
           ) : (
-            <p>No places found.</p> // Tambahkan ini untuk debugging
+            <p>No places found.</p>
           )}
         </div>
       </div>
