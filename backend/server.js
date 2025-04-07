@@ -31,6 +31,9 @@ app.use(
 // Middleware untuk serving gambar dari folder /public/uploads
 app.use("/uploads", express.static("public/uploads"));
 
+// Middleware untuk serving gambar dari folder /public/gambar_komentar
+app.use("/gambar_komentar", express.static("public/gambar_komentar"));
+
 // Konfigurasi Session Store menggunakan Knex
 const store = new KnexSessionStore({
   knex,
@@ -60,6 +63,7 @@ const bandungRoutes = require("./routes/bandung");
 const semuaTempatRoutes = require("./routes/SemuaTempat");
 const authRoutes = require("./auth");
 const parkRoutes = require("./routes/park");
+const wishlistRoutes = require("./routes/wishlist");
 
 app.use("/jakarta", jakartaRoutes);
 app.use("/bogor", bogorRoutes);
@@ -70,6 +74,7 @@ app.use("/bandung", bandungRoutes);
 app.use("/place", semuaTempatRoutes);
 app.use("/auth", authRoutes);
 app.use("/park", parkRoutes);
+app.use("/wishlist", wishlistRoutes);
 
 // Middleware untuk menangani error
 app.use((err, req, res, next) => {

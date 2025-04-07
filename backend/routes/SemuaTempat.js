@@ -9,6 +9,24 @@ function handleError(err, res) {
   res.status(500).json({ error: "Terjadi kesalahan pada server" });
 }
 
+// upload gambar ulasan
+const multer = require("multer");
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, path.join(__dirname, "../public/gambar_komentar"));
+  },
+  filename: function (req, file, cb) {
+    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+    cb(null, uniqueSuffix + path.extname(file.originalname));
+  },
+});
+
+const upload = multer({
+  storage: storage,
+  limits: { files: 3 }, // maksimal 3 gambar
+});
+
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
   try {
@@ -33,7 +51,7 @@ router.get("/:id", async (req, res) => {
 
     // Fetch user reviews
     const [reviewResults] = await database.query(
-      `SELECT up.rating, up.ulasan, u.first_name, u.last_name, u.foto 
+      `SELECT up.rating, up.ulasan, up.gambar_ulasan, u.first_name, u.last_name, u.foto 
       FROM ulasan_pengguna up 
       JOIN user u ON up.id_user = u.id 
       WHERE up.tempat_id = ?;`,
@@ -47,6 +65,11 @@ router.get("/:id", async (req, res) => {
         foto: review.foto
           ? `http://localhost:8000/uploads/users/${review.foto}`
           : null,
+        gambar_ulasan: review.gambar_ulasan
+          ? JSON.parse(review.gambar_ulasan).map(
+              (g) => `http://localhost:8000/gambar_komentar/${g}`
+            )
+          : [],
       };
     });
 
@@ -76,67 +99,68 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.post("/:id/review", authMiddleware, async (req, res) => {
-  const { id } = req.params;
-  const { rating, ulasan } = req.body;
-  const userId = req.session.user?.id;
+router.post(
+  "/:id/review",
+  authMiddleware,
+  upload.array("gambar", 3),
+  async (req, res) => {
+    const { id } = req.params;
+    const { rating, ulasan } = req.body;
+    const userId = req.session.user?.id;
 
-  if (!userId) {
-    return res.status(401).json({ error: "User tidak terautentikasi" });
-  }
-
-  try {
-    // 1. Menambahkan ulasan baru
-    await database.query(
-      "INSERT INTO ulasan_pengguna (tempat_id, id_user, rating, ulasan) VALUES (?, ?, ?, ?);",
-      [id, userId, rating, ulasan]
-    );
-
-    try {
-      const [avgResults] = await database.query(
-        "SELECT AVG(rating) AS avgRating FROM ulasan_pengguna WHERE tempat_id = ?;",
-        [id]
-      );
-
-      const avgRating = parseFloat(avgResults[0].avgRating) || 0;
-      console.log("Avg Rating:", avgRating); // Debug
-
-      await database.query(
-        "UPDATE tempat_wisata SET rating = ? WHERE id_tempat = ?;",
-        [avgRating.toFixed(2), id]
-      );
-    } catch (err) {
-      console.error("Gagal update rating:", err.message); // Debug log
+    if (!userId) {
+      return res.status(401).json({ error: "User tidak terautentikasi" });
     }
 
-    // // 2. Hitung rata-rata rating terbaru
-    // const [avgResults] = await database.query(
-    //   "SELECT AVG(rating) AS avgRating FROM ulasan_pengguna WHERE tempat_id = ?;",
-    //   [id]
-    // );
-    // const avgRating = avgResults[0].avgRating || 0;
+    const gambarPaths = req.files.map((file) => file.filename); // nama file
+    const gambarJson = JSON.stringify(gambarPaths); // simpan sebagai array JSON
 
-    // // 3. Update kolom `rating` di tabel `tempat_wisata`
-    // await database.query(
-    //   "UPDATE tempat_wisata SET rating = ? WHERE id_tempat = ?;",
-    //   [avgRating.toFixed(2), id]
-    // );
+    try {
+      // Menambahkan ulasan baru
+      await database.query(
+        "INSERT INTO ulasan_pengguna (tempat_id, id_user, rating, ulasan, gambar_ulasan) VALUES (?, ?, ?, ?, ?);",
+        [id, userId, rating, ulasan, gambarJson]
+      );
 
-    // 4. Ambil review baru untuk dikirim ke frontend
-    const [newReviewResults] = await database.query(
-      "SELECT up.rating, up.ulasan, u.first_name, u.last_name, u.foto FROM ulasan_pengguna up JOIN user u ON up.id_user = u.id WHERE up.tempat_id = ? AND up.id_user = ?;",
-      [id, userId]
-    );
+      try {
+        const [avgResults] = await database.query(
+          "SELECT AVG(rating) AS avgRating FROM ulasan_pengguna WHERE tempat_id = ?;",
+          [id]
+        );
 
-    const newReview = newReviewResults[0];
-    newReview.foto = newReview.foto
-      ? `http://localhost:8000/uploads/users/${newReview.foto}`
-      : null;
+        const avgRating = parseFloat(avgResults[0].avgRating) || 0;
+        console.log("Avg Rating:", avgRating); // Debug
 
-    res.status(201).json(newReview);
-  } catch (err) {
-    handleError(err, res);
+        await database.query(
+          "UPDATE tempat_wisata SET rating = ? WHERE id_tempat = ?;",
+          [avgRating.toFixed(2), id]
+        );
+      } catch (err) {
+        console.error("Gagal update rating:", err.message); // Debug log
+      }
+
+      // Ambil review baru untuk dikirim ke frontend
+      const [newReviewResults] = await database.query(
+        "SELECT up.rating, up.ulasan, up.gambar_ulasan, u.first_name, u.last_name, u.foto FROM ulasan_pengguna up JOIN user u ON up.id_user = u.id WHERE up.tempat_id = ? AND up.id_user = ? ORDER BY up.id_ulasan DESC;",
+        [id, userId]
+      );
+
+      const newReview = newReviewResults[0];
+      newReview.foto = newReview.foto
+        ? `http://localhost:8000/uploads/users/${newReview.foto}`
+        : null;
+
+      newReview.gambar_ulasan = newReview.gambar_ulasan
+        ? JSON.parse(newReview.gambar_ulasan).map(
+            (g) => `http://localhost:8000/gambar_komentar/${g}`
+          )
+        : [];
+
+      res.status(201).json(newReview);
+    } catch (err) {
+      handleError(err, res);
+    }
   }
-});
+);
 
 module.exports = router;

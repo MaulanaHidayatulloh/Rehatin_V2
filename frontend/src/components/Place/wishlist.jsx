@@ -11,10 +11,31 @@ import "./wishlist.css";
 const Wishlist = () => {
   const [wishlist, setWishlist] = useState([]);
 
+  // Ambil wishlist dari backend
   useEffect(() => {
-    // Load wishlist from localStorage
-    const savedWishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
-    setWishlist(savedWishlist);
+    fetch("http://localhost:8000/wishlist", {
+      method: "GET",
+      credentials: "include",
+    })
+      .then((res) => {
+        if (res.status === 401) {
+          alert("Anda harus login untuk melihat wishlist");
+          return [];
+        }
+        return res.json();
+      })
+      .then((data) => {
+        const formattedData = (data.wishlist || []).map((place) => ({
+          ...place,
+          averageRating: place.average_rating
+            ? parseFloat(place.average_rating).toFixed(1)
+            : "0.0",
+        }));
+        setWishlist(formattedData);
+      })
+      .catch((err) => {
+        console.error("Gagal mengambil wishlist:", err);
+      });
   }, []);
 
   const renderRating = (rating) => {
@@ -23,22 +44,41 @@ const Wishlist = () => {
     const stars = [];
 
     for (let i = 0; i < fullStars; i++) {
-      stars.push(<StarFill key={i} size={15} className="star-full" />);
+      stars.push(<StarFill key={i} size={20} className="star-full" />);
     }
 
     if (hasHalfStar) {
-      stars.push(<StarHalf key="half" size={15} className="star-half" />);
+      stars.push(<StarHalf key="half" size={20} className="star-half" />);
     }
 
     return stars;
   };
 
   const handleRemoveFromWishlist = (placeId) => {
-    const updatedWishlist = wishlist.filter(
-      (place) => place.id_tempat !== placeId
+    const confirmDelete = window.confirm(
+      "Apakah kamu yakin ingin menghapus tempat ini dari wishlist?"
     );
-    setWishlist(updatedWishlist);
-    localStorage.setItem("wishlist", JSON.stringify(updatedWishlist));
+    if (!confirmDelete) return;
+
+    fetch("http://localhost:8000/wishlist", {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify({ tempat_id: placeId }),
+    })
+      .then((res) => {
+        if (res.ok) {
+          setWishlist(wishlist.filter((place) => place.tempat_id !== placeId));
+          window.location.reload();
+        } else if (res.status === 401) {
+          alert("Anda harus login terlebih dahulu");
+        } else {
+          alert("Gagal menghapus dari wishlist");
+        }
+      })
+      .catch((err) => {
+        console.error("Gagal hapus wishlist:", err);
+      });
   };
 
   return (
@@ -53,29 +93,33 @@ const Wishlist = () => {
               <Link to={`/places/${place.id_tempat}`} className="link_tempat">
                 <div className="wishlistPlace_gambar">
                   <img
-                    src={`data:image/png;base64,${place.gambarBase64}`}
+                    src={`http://localhost:8000/uploads/${place.gambar_path}`}
                     alt={place.nama_tempat}
                   />
                   <div
-                    className="place_love"
+                    className="wishlistPlace_love"
                     onClick={(e) => {
                       e.preventDefault();
                       handleRemoveFromWishlist(place.id_tempat);
                     }}
                   >
-                    <HeartFill className="love-icon loved" />
+                    <HeartFill className="wishlistPlacelove-icon loved" />
                   </div>
                 </div>
                 <div className="wishlistPlace_keterangan">
                   <h2>{place.nama_tempat}</h2>
-                  <div className="place_rating">
-                    <p id="nilai_rating">{place.averageRating}</p>
+                  <div className="wishlistPlace_rating">
+                    <p id="nilai_rating" style={{ fontSize: "22px" }}>
+                      {place.averageRating}
+                    </p>
                     <p>{renderRating(place.averageRating)}</p>
                   </div>
                   <p>
                     <GeoAltFill className="mapEvent" /> {place.lokasi}
                   </p>
-                  <p className="place_deskripsi">{place.deskripsi}...</p>
+                  <p className="wishlistPlace_deskripsi">
+                    {place.deskripsi.split(" ").slice(0, 10).join(" ") + "..."}
+                  </p>
                 </div>
                 <div className="wishlistPlace_harga">
                   <p>Perkiraan Harga :</p>

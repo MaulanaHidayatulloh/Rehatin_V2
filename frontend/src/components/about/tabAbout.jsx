@@ -35,19 +35,6 @@ function CardAbout() {
         </li>
         <li>
           <Link
-            to="tim"
-            spy={true}
-            smooth={true}
-            hashSpy={true}
-            offset={-50}
-            duration={500}
-            className="text-decoration-none text-white"
-          >
-            Our Team
-          </Link>
-        </li>
-        <li>
-          <Link
             to="kontak"
             spy={true}
             smooth={true}
@@ -56,7 +43,7 @@ function CardAbout() {
             duration={500}
             className="text-decoration-none text-white"
           >
-            Contact
+            Call or Visit
           </Link>
         </li>
       </ul>

@@ -13,10 +13,7 @@ const Bogor = () => {
   const [wishlist, setWishlist] = useState([]);
 
   useEffect(() => {
-    // Load wishlist from localStorage
-    const savedWishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
-    setWishlist(savedWishlist);
-
+    // Ambil data tempat
     axios
       .get("http://localhost:8000/bogor")
       .then((response) => {
@@ -34,6 +31,16 @@ const Bogor = () => {
       .catch((err) => {
         console.error("Error fetching places:", err);
       });
+
+    // Ambil wishlist dari backend
+    axios
+      .get("http://localhost:8000/wishlist", { withCredentials: true })
+      .then((res) => {
+        setWishlist(res.data.wishlist || []);
+      })
+      .catch((err) => {
+        console.error("Gagal mengambil wishlist:", err);
+      });
   }, []);
 
   const renderRating = (rating) => {
@@ -42,11 +49,11 @@ const Bogor = () => {
     const stars = [];
 
     for (let i = 0; i < fullStars; i++) {
-      stars.push(<StarFill key={i} size={15} className="star-full" />);
+      stars.push(<StarFill key={i} size={20} className="star-full" />);
     }
 
     if (hasHalfStar) {
-      stars.push(<StarHalf key="half" size={15} className="star-half" />);
+      stars.push(<StarHalf key="half" size={20} className="star-half" />);
     }
 
     return stars;
@@ -56,17 +63,43 @@ const Bogor = () => {
     setSelectedRating(rating);
   };
 
-  const handleLoveClick = (place) => {
-    let updatedWishlist = [];
-    if (wishlist.some((item) => item.id_tempat === place.id_tempat)) {
-      updatedWishlist = wishlist.filter(
-        (item) => item.id_tempat !== place.id_tempat
-      );
-    } else {
-      updatedWishlist = [...wishlist, place];
+  const handleLoveClick = async (place) => {
+    const isInWishlist = wishlist.some(
+      (item) => item.id_tempat === place.id_tempat
+    );
+    let updatedWishlist;
+
+    try {
+      if (isInWishlist) {
+        const confirmDelete = window.confirm(
+          `Apakah kamu yakin ingin menghapus "${place.nama_tempat}" dari wishlist?`
+        );
+        if (!confirmDelete) return;
+
+        await axios.delete("http://localhost:8000/wishlist", {
+          data: { tempat_id: place.id_tempat },
+          withCredentials: true,
+        });
+        updatedWishlist = wishlist.filter(
+          (item) => item.id_tempat !== place.id_tempat
+        );
+      } else {
+        await axios.post(
+          "http://localhost:8000/wishlist",
+          { tempat_id: place.id_tempat },
+          { withCredentials: true }
+        );
+        updatedWishlist = [...wishlist, place];
+      }
+      setWishlist(updatedWishlist);
+    } catch (err) {
+      if (err.response && err.response.status === 401) {
+        alert("Silakan login terlebih dahulu untuk menambahkan ke wishlist.");
+      } else {
+        console.error("Gagal mengelola wishlist:", err);
+        alert("Terjadi kesalahan.");
+      }
     }
-    setWishlist(updatedWishlist);
-    localStorage.setItem("wishlist", JSON.stringify(updatedWishlist));
   };
 
   return (

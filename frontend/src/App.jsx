@@ -113,6 +113,10 @@ function App() {
             starterPromptFontSize: 15,
             clearChatOnReload: true,
             renderHTML: true,
+            userMessage: {
+              backgroundColor: "#468392",
+              textColor: "#ffffff",
+            },
             textInput: {
               placeholder: "Ketik yang ingin ditanyakan!",
               backgroundColor: "#F3F8FF",
