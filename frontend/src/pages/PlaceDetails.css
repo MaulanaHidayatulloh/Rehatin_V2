@@ -190,9 +190,14 @@
   display: flex;
   align-items: center;
   gap: 20px;
+  /* background-color: aqua; */
+}
+
+.Kumpulanreview_profil .pemisah-nama-tanggal p {
+  margin: 0;
 }
 
 .RatingAndReview {
-  /* padding-left: 4.5rem; */
-  padding-top: 1.5rem;
+  padding-top: 1rem;
+  font-weight: bold;
 }

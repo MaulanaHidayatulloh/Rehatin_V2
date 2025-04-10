@@ -51,7 +51,7 @@ router.get("/:id", async (req, res) => {
 
     // Fetch user reviews
     const [reviewResults] = await database.query(
-      `SELECT up.rating, up.ulasan, up.gambar_ulasan, u.first_name, u.last_name, u.foto 
+      `SELECT up.rating, up.ulasan, up.gambar_ulasan, up.tanggal_ulasan, u.first_name, u.last_name, u.foto 
       FROM ulasan_pengguna up 
       JOIN user u ON up.id_user = u.id 
       WHERE up.tempat_id = ?;`,
@@ -60,6 +60,13 @@ router.get("/:id", async (req, res) => {
 
     // Ubah path gambar user
     const reviewsWithPath = reviewResults.map((review) => {
+      const formattedDate = review.tanggal_ulasan
+        ? new Intl.DateTimeFormat("id-ID", {
+            day: "numeric",
+            month: "long",
+            year: "numeric",
+          }).format(new Date(review.tanggal_ulasan))
+        : null;
       return {
         ...review,
         foto: review.foto
@@ -70,6 +77,7 @@ router.get("/:id", async (req, res) => {
               (g) => `http://localhost:8000/gambar_komentar/${g}`
             )
           : [],
+        tanggal_ulasan: formattedDate,
       };
     });
 
@@ -118,7 +126,7 @@ router.post(
     try {
       // Menambahkan ulasan baru
       await database.query(
-        "INSERT INTO ulasan_pengguna (tempat_id, id_user, rating, ulasan, gambar_ulasan) VALUES (?, ?, ?, ?, ?);",
+        "INSERT INTO ulasan_pengguna (tempat_id, id_user, rating, ulasan, gambar_ulasan, tanggal_ulasan) VALUES (?, ?, ?, ?, ?, NOW());",
         [id, userId, rating, ulasan, gambarJson]
       );
 
@@ -141,7 +149,7 @@ router.post(
 
       // Ambil review baru untuk dikirim ke frontend
       const [newReviewResults] = await database.query(
-        "SELECT up.rating, up.ulasan, up.gambar_ulasan, u.first_name, u.last_name, u.foto FROM ulasan_pengguna up JOIN user u ON up.id_user = u.id WHERE up.tempat_id = ? AND up.id_user = ? ORDER BY up.id_ulasan DESC;",
+        "SELECT up.rating, up.ulasan, up.gambar_ulasan, up.tanggal_ulasan, u.first_name, u.last_name, u.foto FROM ulasan_pengguna up JOIN user u ON up.id_user = u.id WHERE up.tempat_id = ? AND up.id_user = ? ORDER BY up.id_ulasan DESC;",
         [id, userId]
       );
 
@@ -156,11 +164,50 @@ router.post(
           )
         : [];
 
+      newReview.tanggal_ulasan = newReview.tanggal_ulasan
+        ? new Intl.DateTimeFormat("id-ID", {
+            day: "numeric",
+            month: "long",
+            year: "numeric",
+          }).format(new Date(newReview.tanggal_ulasan))
+        : null;
+
       res.status(201).json(newReview);
     } catch (err) {
       handleError(err, res);
     }
   }
 );
+
+router.get("/recommendation/:city", async (req, res) => {
+  const { city } = req.params;
+  try {
+    const [results] = await database.query(
+      `SELECT 
+         tw.id_tempat, tw.nama_tempat, kl.nama_kategori_lokasi, tw.harga, tw.rating, tw.gambar_path
+       FROM tempat_wisata tw
+       JOIN kategori_lokasi kl ON tw.kategori_lokasi = kl.id_kl
+       WHERE LOWER(kl.nama_kategori_lokasi) LIKE LOWER(?)
+       ORDER BY tw.rating DESC
+       LIMIT 7;`,
+      [`%${city}%`]
+    );
+
+    const formatted = results.map((item) => ({
+      id: item.id_tempat,
+      title: item.nama_tempat,
+      rating: item.rating,
+      harga: item.harga,
+      imgSrc: item.gambar_path
+        ? `http://localhost:8000/uploads/${item.gambar_path}`
+        : null,
+      url: `/places/${item.id_tempat}`,
+    }));
+
+    res.json(formatted);
+  } catch (err) {
+    handleError(err, res);
+  }
+});
 
 module.exports = router;

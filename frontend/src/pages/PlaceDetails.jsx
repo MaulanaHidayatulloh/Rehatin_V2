@@ -261,9 +261,14 @@ const PlaceDetail = ({ user, isLoggedIn }) => {
                         }}
                       />
                     )}
-                    <p style={{ paddingTop: "0.8rem", fontSize: "1.2rem" }}>
-                      {review.first_name} {review.last_name}
-                    </p>
+                    <div className="pemisah-nama-tanggal">
+                      <p style={{ fontSize: "1.2rem", fontWeight: "bold" }}>
+                        {review.first_name} {review.last_name}
+                      </p>
+                      <p style={{ marginTop: "5px" }}>
+                        {review.tanggal_ulasan}
+                      </p>
+                    </div>
                   </div>
 
                   <p className="RatingAndReview">
@@ -280,7 +285,7 @@ const PlaceDetail = ({ user, isLoggedIn }) => {
                       <StarHalf size={17} className="star-half" />
                     )}
                   </p>
-                  {/* input review gambar */}
+                  {/* review gambar */}
                   <p>{review.ulasan}</p>
                   {review.gambar_ulasan && review.gambar_ulasan.length > 0 && (
                     <div className="review-images">
