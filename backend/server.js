@@ -64,6 +64,7 @@ const semuaTempatRoutes = require("./routes/SemuaTempat");
 const authRoutes = require("./auth");
 const parkRoutes = require("./routes/park");
 const wishlistRoutes = require("./routes/wishlist");
+const adminPlaceRoutes = require("./routes/adminPlace");
 
 app.use("/jakarta", jakartaRoutes);
 app.use("/bogor", bogorRoutes);
@@ -75,6 +76,7 @@ app.use("/place", semuaTempatRoutes);
 app.use("/auth", authRoutes);
 app.use("/park", parkRoutes);
 app.use("/wishlist", wishlistRoutes);
+app.use("/adminPlace", adminPlaceRoutes);
 
 // Middleware untuk menangani error
 app.use((err, req, res, next) => {

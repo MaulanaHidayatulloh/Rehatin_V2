@@ -41,7 +41,7 @@ router.delete("/", authMiddleware, async (req, res) => {
   }
 });
 
-// (Opsional) Ambil semua wishlist user yang login
+// Ambil semua wishlist user yang login
 router.get("/", authMiddleware, async (req, res) => {
   const user_id = req.session.user.id;
 

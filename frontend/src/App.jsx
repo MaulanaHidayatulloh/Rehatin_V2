@@ -24,7 +24,9 @@ import Profile from "./pages/Profile";
 import EditProfile from "./pages/EditProfile";
 import KategoriTempat from "./pages/Places/KategoriTempat-Pages";
 import { BubbleChat } from "flowise-embed-react";
-import { Display } from "react-bootstrap-icons";
+import AdminHome from "./pages/adminHome";
+import AdminEditTempat from "./pages/editTempatAdmin";
+import AdminTambahTempat from "./pages/tambahTempatAdmin";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(
@@ -85,6 +87,12 @@ function App() {
           <Route
             path="/category/:categoryId/location/:locationId"
             element={<KategoriTempat />}
+          />
+          <Route path="/admin-home" element={<AdminHome />} />
+          <Route path="/edit-tempat/:id" element={<AdminEditTempat />} />
+          <Route
+            path="/admin-tambahTempatWisata"
+            element={<AdminTambahTempat />}
           />
         </Routes>
       </Router>

@@ -210,4 +210,32 @@ router.get("/recommendation/:city", async (req, res) => {
   }
 });
 
+// untuk semua tempat wisata
+router.get("/", async (req, res) => {
+  try {
+    const [results] = await database.query(`
+      SELECT 
+        *
+      FROM 
+        tempat_wisata 
+     
+      ORDER BY rating DESC;
+    `);
+
+    const places = results.map((place) => ({
+      ...place,
+      average_rating: parseFloat(place.rating).toFixed(1),
+      gambar_path: `http://localhost:8000/uploads/${place.gambar_path}`, // Path gambar otomatis
+    }));
+
+    res.json(places);
+  } catch (err) {
+    console.error("Error:", err);
+    res.status(500).json({ error: "Terjadi kesalahan pada server" });
+  }
+});
+
+// Middleware untuk menyajikan gambar dari folder /public/uploads
+router.use("/uploads", express.static("public/uploads"));
+
 module.exports = router;
