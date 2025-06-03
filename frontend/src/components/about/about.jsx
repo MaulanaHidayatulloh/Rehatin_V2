@@ -4,21 +4,22 @@ function About() {
   return (
     <section id="main-about">
       <div className="grid-kiri">
-        <h2>WE ARE READY TO HELP YOU FIND A FUN PLACE TO HANGOUT</h2>
+        <h2>KAMI SIAP MEMBANTU ANDA MENEMUKAN TEMPAT WISATA YANG SERU</h2>
         <p>
-          Rehatin is a diverse website, which provides recommendations for
-          entertainment places that you can visit with your family or friends
-          when the holiday season arrives, during your free time, or when you
-          feel tired. With a very comprehensive collection of information,
-          Rehatin helps you plan the perfect adventure and deliver an
-          unforgettable holiday experience.
+          Rehatin adalah website pencarian tempat wisata, yang menyediakan
+          rekomendasi tempat-tempat wisata yang bisa anda kunjungi bersama
+          keluarga atau teman. Baik saat musim liburan tiba, di waktu luang,
+          maupun ketika anda merasa lelah dan butuh rehat. Dengan koleksi
+          informasi yang sangat lengkap, Rehatin membantu anda merencanakan
+          petualangan yang sempurna dan menghadirkan pengalaman liburan yang tak
+          terlupakan.
         </p>
         <p>
-          We are determined to provide inspiration to our users by presenting
-          various recommendations for interesting entertainment places that they
-          can visit. We want to help them find a destination that suits their
-          interests and needs, so that every holiday is an unforgettable
-          experience.
+          Kami berkomitmen untuk memberikan inspirasi kepada para pengguna
+          dengan menyajikan berbagai rekomendasi tempat wisata menarik yang
+          dapat anda kunjungi. Kami ingin membantu anda menemukan destinasi yang
+          sesuai dengan minat dan kebutuhan anda, sehingga setiap liburan
+          menjadi pengalaman yang istimewa dan berkesan.
         </p>
       </div>
       <div className="grid-kanan">

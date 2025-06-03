@@ -91,7 +91,7 @@ router.post(
       if (users.length === 0) {
         return res
           .status(400)
-          .json({ error: "Email atau kata sandi tidak valid" });
+          .json({ error: "Email tidak terdaftar. Silakan periksa kembali." });
       }
 
       const user = users[0];
@@ -101,7 +101,7 @@ router.post(
       if (!isMatch) {
         return res
           .status(400)
-          .json({ error: "Email atau kata sandi tidak valid" });
+          .json({ error: "Kata sandi salah. Silakan coba lagi." });
       }
 
       // Path gambar
@@ -126,6 +126,7 @@ router.post(
         tanggal_daftar: user.tanggal_daftar,
         tanggal_lahir: formattedBirthDate,
         asal: user.asal,
+        level: user.level,
       };
 
       return res.json({
@@ -139,6 +140,7 @@ router.post(
           tanggal_daftar: user.tanggal_daftar,
           tanggal_lahir: formattedBirthDate,
           asal: user.asal,
+          level: user.level,
         },
       });
     } catch (error) {
@@ -148,6 +150,7 @@ router.post(
   }
 );
 
+// Logout
 router.post("/logout", (req, res) => {
   req.session.destroy((err) => {
     if (err) {

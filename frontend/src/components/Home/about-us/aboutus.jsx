@@ -1,7 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./aboutus.css";
-import { Link } from "react-router-dom";
 
 function AboutUs() {
   const navigate = useNavigate();
@@ -17,16 +16,17 @@ function AboutUs() {
       </div>
       <div className="home-content">
         <h2>ABOUT US</h2>
-        <h1>WE ARE READY TO HELP YOU FIND A FUN PLACE TO HANGOUT</h1>
+        <h1>KAMI SIAP MEMBANTU ANDA MENEMUKAN TEMPAT WISATA YANG SERU</h1>
         <p>
-          Rehatin is a diverse website, which provides recommendations for
-          entertainment places that you can visit with your family or friends
-          when the holiday season arrives, during your free time, or when you
-          feel tired. With a very comprehensive collection of information,
-          Rehatin helps you plan the perfect adventure and deliver an
-          unforgettable holiday experience.
+          Rehatin adalah website pencarian tempat wisata, yang menyediakan
+          rekomendasi tempat-tempat wisata yang bisa anda kunjungi bersama
+          keluarga atau teman. Baik saat musim liburan tiba, di waktu luang,
+          maupun ketika anda merasa lelah dan butuh rehat. Dengan koleksi
+          informasi yang sangat lengkap, Rehatin membantu anda merencanakan
+          petualangan yang sempurna dan menghadirkan pengalaman liburan yang tak
+          terlupakan.
         </p>
-        <button onClick={handleLearnMore}>Learn More</button>
+        <button onClick={handleLearnMore}>Pelajari Lebih Lanjut</button>
       </div>
     </section>
   );

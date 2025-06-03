@@ -17,7 +17,7 @@ function CardAbout() {
             duration={500}
             className="text-decoration-none text-white"
           >
-            Our Overview
+            Tentang Kami
           </Link>
         </li>
         <li>
@@ -30,7 +30,7 @@ function CardAbout() {
             duration={500}
             className="text-decoration-none text-white"
           >
-            Vision and Mission
+            Visi dan Misi
           </Link>
         </li>
         <li>
@@ -43,7 +43,7 @@ function CardAbout() {
             duration={500}
             className="text-decoration-none text-white"
           >
-            Call or Visit
+            Kontak Kami
           </Link>
         </li>
       </ul>

@@ -4,19 +4,19 @@ import { Link, useParams } from "react-router-dom";
 import "./KategoriTempat.css";
 
 const categoryMapping = {
-  1: "Park",
-  2: "Museum",
-  3: "Eatery",
-  4: "Playground",
+  1: "Alam",
+  2: "Budaya",
+  3: "Kuliner",
+  4: "Bermain",
 };
 
 const locationMapping = {
-  1: "Jakarta",
-  2: "Bogor",
-  3: "Depok",
-  4: "Tangerang",
-  5: "Bekasi",
-  6: "Bandung",
+  1: "Jawa",
+  2: "Sumatra",
+  3: "Kalimantan",
+  4: "Sulawesi",
+  5: "Papua",
+  6: "Bali",
 };
 
 function KategoriTempat() {
@@ -30,8 +30,8 @@ function KategoriTempat() {
       try {
         const response = await axios.get(
           locationId
-            ? `http://localhost:8000/park/category/${categoryId}/location/${locationId}`
-            : `http://localhost:8000/park/category/${categoryId}`
+            ? `http://localhost:8000/kategoritempat/category/${categoryId}/location/${locationId}`
+            : `http://localhost:8000/kategoritempat/category/${categoryId}`
         );
         console.log(response.data);
         setPlaces(response.data);

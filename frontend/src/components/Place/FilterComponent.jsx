@@ -5,12 +5,12 @@ const FilterComponent = ({ onRatingChange }) => {
   const [selectedRating, setSelectedRating] = useState(null);
 
   const cities = [
-    { name: "Jakarta", url: "/Jakarta" },
-    { name: "Bogor", url: "/Bogor" },
-    { name: "Depok", url: "/Depok" },
-    { name: "Tangerang", url: "/Tangerang" },
-    { name: "Bekasi", url: "/Bekasi" },
-    { name: "Bandung", url: "/Bandung" },
+    { name: "Jawa", url: "/Jawa" },
+    { name: "Sumatra", url: "/Sumatra" },
+    { name: "Kalimantan", url: "/Kalimantan" },
+    { name: "Sulawesi", url: "/Sulawesi" },
+    { name: "Papua", url: "/Papua" },
+    { name: "Bali", url: "/Bali" },
   ];
 
   const ratings = [5, 4, 3, 2, 1];

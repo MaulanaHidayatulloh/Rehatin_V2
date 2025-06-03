@@ -9,23 +9,23 @@ function VisiMisi() {
       <div className="sec-card">
         <Card>
           <CardBody>
-            <h3 className="fw-bold">Our Vision</h3>
+            <h3 className="fw-bold">Visi Kami</h3>
             <p>
-              To become the leading platform that inspires and facilitates users
-              in discovering entertainment destinations that match their
-              interests and needs, ensuring every holiday is an unforgettable
-              experience.
+              Menjadi platform terdepan yang menginspirasi dan memfasilitasi
+              pengguna dalam menemukan tempat wisata yang sesuai dengan minat
+              dan kebutuhan mereka, memastikan setiap liburan menjadi pengalaman
+              yang tak terlupakan.
             </p>
           </CardBody>
         </Card>
         <Card>
           <CardBody>
-            <h3 className="fw-bold">Our Mission</h3>
+            <h3 className="fw-bold">Misi Kami</h3>
             <p>
-              We are committed to inspiring our users by providing a variety of
-              recommendations for exciting entertainment venues they can visit.
-              We aim to help them find destinations that match their interests
-              and needs, making every holiday an unforgettable experience.
+              Kami berkomitmen untuk menginspirasi pengguna untuk memberikan
+              berbagai rekomendasi tempat wisata menarik yang dapat mereka
+              kunjungi. Kami bertujuan untuk membantu mereka menemukan destinasi
+              yang sesuai dengan minat dan kebutuhan mereka.
             </p>
           </CardBody>
         </Card>

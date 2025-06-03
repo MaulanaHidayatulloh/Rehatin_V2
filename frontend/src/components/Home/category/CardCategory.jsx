@@ -7,10 +7,10 @@ import "./CardCategory.css";
 import React from "react";
 
 const categoryMapping = {
-  1: "Park",
-  2: "Museum",
-  3: "Eatery",
-  4: "Playground",
+  1: "Alam",
+  2: "Budaya",
+  3: "Kuliner",
+  4: "Bermain",
 };
 
 function CardCategory() {
@@ -37,13 +37,13 @@ function CardCategory() {
               <Card className="text-white p-0">
                 <Card.Img
                   className="img img-kategori"
-                  src={`src/assets/Home/Category/Gambar katagori/0-${categoryMapping[
+                  src={`src/assets/Home/Category/Gambar-kategori/${categoryMapping[
                     categoryId
-                  ].toLowerCase()}.jpg`}
+                  ].toLowerCase()}.png`}
                   alt="Card image"
                 />
                 <Card.ImgOverlay className="fw-bold text-wrap">
-                  <Card.Text className="cardCategory-text ">
+                  <Card.Text className="cardCategory-text">
                     {categoryMapping[categoryId]}
                   </Card.Text>
                 </Card.ImgOverlay>

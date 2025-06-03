@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import "./recommendation.css";
 import { StarHalf, StarFill } from "react-bootstrap-icons";
 
-const cities = ["Jakarta", "Bogor", "Depok", "Tangerang", "Bekasi", "Bandung"];
+const cities = ["Jawa", "Sumatra", "Kalimantan", "Sulawesi", "Papua", "Bali"];
 
 const Recommendation = () => {
-  const [activeCity, setActiveCity] = useState("Jakarta");
+  const [activeCity, setActiveCity] = useState("Jawa");
   const [recommendations, setRecommendations] = useState([]);
 
   useEffect(() => {

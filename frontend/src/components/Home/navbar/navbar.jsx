@@ -65,7 +65,20 @@ function NavbarCom({ onLogout }) {
     setIsLoggedInState(false);
     localStorage.removeItem("user");
     localStorage.removeItem("isLoggedIn");
-    onLogout();
+
+    fetch("http://localhost:8000/auth/logout", {
+      method: "POST",
+      credentials: "include",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("Logout response:", data);
+      })
+      .catch((error) => {
+        console.error("Logout error:", error);
+      });
+    window.location.reload();
+    onLogout && onLogout();
   };
 
   useEffect(() => {
@@ -83,6 +96,27 @@ function NavbarCom({ onLogout }) {
     }
   }, []);
 
+  const [displayedName, setDisplayedName] = useState("");
+
+  useEffect(() => {
+    const updateName = () => {
+      if (userState?.first_name) {
+        const isMobile = window.innerWidth <= 768;
+        const name = userState.first_name;
+        const trimmed =
+          isMobile && name.length > 7 ? name.slice(0, 7) + "…" : name;
+        setDisplayedName(trimmed);
+      }
+    };
+
+    updateName();
+    window.addEventListener("resize", updateName);
+
+    return () => {
+      window.removeEventListener("resize", updateName);
+    };
+  }, [userState]);
+
   const handleNavClick = (nav) => {
     setActiveNav(nav);
     localStorage.setItem("activeNav", nav);
@@ -96,6 +130,14 @@ function NavbarCom({ onLogout }) {
 
   return (
     <header className={styles.header}>
+      <div
+        id="hamburger-menu"
+        onClick={toggleMobileMenu}
+        ref={hamburgerMenuRef}
+        className={styles.hamburgerMenu}
+      >
+        <List />
+      </div>
       <a className={styles.navbarLogo}>
         <img src="../public/logo/logo_rehatin.png" alt="logo" />
       </a>
@@ -150,35 +192,15 @@ function NavbarCom({ onLogout }) {
                     src={userState.foto}
                     alt="user"
                     className={styles.userPhoto}
-                    style={{
-                      width: "50px",
-                      height: "50px",
-                      borderRadius: "100%",
-                      border: "1px solid #c4c4c4",
-                    }}
                   />
                 ) : (
                   <img
                     src="../public/logo/default.png"
                     alt="user"
                     className={styles.userPhoto}
-                    style={{
-                      width: "50px",
-                      height: "50px",
-                      borderRadius: "100%",
-                      border: "1px solid #c4c4c4",
-                    }}
                   />
                 )}
-                <span
-                  style={{
-                    fontSize: "1.1rem",
-                    paddingLeft: "1rem",
-                    paddingRight: "0.2rem",
-                  }}
-                >
-                  {userState?.first_name}
-                </span>
+                <span className={styles.userName}>{displayedName}</span>
               </Dropdown.Toggle>
 
               <Dropdown.Menu>
@@ -205,17 +227,9 @@ function NavbarCom({ onLogout }) {
           </div>
         ) : (
           <button className={styles.login} onClick={handleShow}>
-            Log In
+            Login
           </button>
         )}
-        <div
-          id="hamburger-menu"
-          onClick={toggleMobileMenu}
-          ref={hamburgerMenuRef}
-          className={styles.hamburgerMenu}
-        >
-          <List />
-        </div>
       </nav>
       <Login
         show={show}

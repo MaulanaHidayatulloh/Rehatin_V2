@@ -39,15 +39,15 @@ function Kontak() {
 
   return (
     <section id="kontak" className="contact">
-      <h2 className="fw-bold">CALL OR VISIT</h2>
+      <h2 className="fw-bold">Kontak Kami</h2>
       <div className="row">
         <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d312.3957489756764!2d106.70462109177844!3d-6.159430578786205!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f815dcec4e59%3A0xcf6752eb8443babf!2sToko.%20Jaja!5e0!3m2!1sid!2sid!4v1685219699170!5m2!1sid!2sid"
-          allowFullScreen=""
+          src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d247.92416801053827!2d106.70484993406922!3d-6.15931715120261!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sid!2sid!4v1748946207657!5m2!1sid!2sid"
+          allowfullscreen=""
           loading="lazy"
-          referrerPolicy="no-referrer-when-downgrade"
+          referrerpolicy="no-referrer-when-downgrade"
           className="map"
-          title="Lokasi Toko Jaja"
+          title="Lokasi Rumah Maulana"
         ></iframe>
 
         <form ref={formRef} onSubmit={handleSubmit} name="rehatin-contact-form">

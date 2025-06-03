@@ -6,43 +6,45 @@ function City() {
     <section className="menu">
       <div className="menu_title">
         <img src="../src/assets/Home/city/mdi_city.svg" alt="" />
-        <h2>Which city do you choose in Jabodetabek & Bandung</h2>
+        <h2>
+          Silakan pilih pulau yang ingin Anda telusuri destinasi wisatanya
+        </h2>
       </div>
       <div className="row">
-        <a href="/Jakarta" className="menu-card" id="jakarta">
+        <a href="/Jawa" className="menu-card" id="jawa">
           <div className="menu_keterangan">
-            <h3>Jakarta</h3>
-            <p>12.051 accomodations</p>
+            <h3>Jawa</h3>
+            <p>Pulau Jawa & Sekitarnya</p>
           </div>
         </a>
-        <a href="/Bogor" className="menu-card" id="bogor">
+        <a href="/Sumatra" className="menu-card" id="sumatra">
           <div className="menu_keterangan">
-            <h3>Bogor</h3>
-            <p>9.250 accomodations</p>
+            <h3>Sumatra</h3>
+            <p>Pulau Sumatra & Sekitarnya</p>
           </div>
         </a>
-        <a href="/Depok" className="menu-card" id="depok">
+        <a href="/Kalimantan" className="menu-card" id="kalimantan">
           <div className="menu_keterangan">
-            <h3>Depok</h3>
-            <p>7.223 accomodations</p>
+            <h3>Kalimantan</h3>
+            <p>Kalimantan & Sekitarnya</p>
           </div>
         </a>
-        <a href="/Tangerang" className="menu-card" id="tangerang">
+        <a href="/Sulawesi" className="menu-card" id="sulawesi">
           <div className="menu_keterangan">
-            <h3>Tangerang</h3>
-            <p>9.999 accomodations</p>
+            <h3>Sulawesi</h3>
+            <p>Pulau Sulawesi & Sekitarnya</p>
           </div>
         </a>
-        <a href="/Bekasi" className="menu-card" id="bekasi">
+        <a href="/Papua" className="menu-card" id="papua">
           <div className="menu_keterangan">
-            <h3>Bekasi</h3>
-            <p>9.125 accomodations</p>
+            <h3>Papua</h3>
+            <p>Pulau Papua & Sekitarnya</p>
           </div>
         </a>
-        <a href="/Bandung" className="menu-card" id="bandung">
+        <a href="/Bali" className="menu-card" id="bali">
           <div className="menu_keterangan">
-            <h3>Bandung</h3>
-            <p>10.001 accomodations</p>
+            <h3>Bali</h3>
+            <p>Bali, NTB, NTT, & Sekitarnya</p>
           </div>
         </a>
       </div>

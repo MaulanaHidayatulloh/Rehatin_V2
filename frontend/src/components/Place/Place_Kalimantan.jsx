@@ -1,58 +1,40 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
   StarHalf,
   StarFill,
   HeartFill,
   GeoAltFill,
 } from "react-bootstrap-icons";
-import FilterComponent from "../components/Place/FilterComponent";
+import "./place.css";
+import FilterComponent from "./FilterComponent";
 
-const SearchResults = () => {
-  const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
-  const searchQuery = queryParams.get("q") || "";
-
+const Kalimantan = () => {
   const [places, setPlaces] = useState([]);
-  const [wishlist, setWishlist] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
   const [selectedRating, setSelectedRating] = useState(null);
+  const [wishlist, setWishlist] = useState([]);
 
   useEffect(() => {
-    // const savedWishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
-    // setWishlist(savedWishlist);
-    const fetchPlaces = async () => {
-      try {
-        const cities = [
-          "jawa",
-          "sumatra",
-          "kalimantan",
-          "sulawesi",
-          "papua",
-          "bali",
-        ];
-        let allPlaces = [];
-
-        for (const city of cities) {
-          const response = await axios.get(`http://localhost:8000/${city}`);
-          allPlaces = [...allPlaces, ...response.data];
-        }
-
-        const updatedPlaces = allPlaces.map((place) => {
+    // Ambil data tempat
+    axios
+      .get("http://localhost:8000/kalimantan")
+      .then((response) => {
+        const updatedPlaces = response.data.map((place) => {
           const words = place.deskripsi.split(" ");
-          const shortenedDescription = words.slice(0, 10).join(" ");
+          const shortenedDescription = words.slice(0, 10).join(" "); // Mengambil 10 kata pertama
           return {
             ...place,
             deskripsi: shortenedDescription,
             averageRating: parseFloat(place.average_rating).toFixed(1),
           };
         });
-
         setPlaces(updatedPlaces);
-      } catch (err) {
+      })
+      .catch((err) => {
         console.error("Error fetching places:", err);
-      }
-    };
+      });
 
     // Ambil wishlist dari backend
     axios
@@ -63,8 +45,7 @@ const SearchResults = () => {
       .catch((err) => {
         console.error("Gagal mengambil wishlist:", err);
       });
-    fetchPlaces();
-  }, [searchQuery]);
+  }, []);
 
   const renderRating = (rating) => {
     const fullStars = Math.floor(rating);
@@ -72,11 +53,11 @@ const SearchResults = () => {
     const stars = [];
 
     for (let i = 0; i < fullStars; i++) {
-      stars.push(<StarFill key={i} size={15} className="star-full" />);
+      stars.push(<StarFill key={i} size={20} className="star-full" />);
     }
 
     if (hasHalfStar) {
-      stars.push(<StarHalf key="half" size={15} className="star-half" />);
+      stars.push(<StarHalf key="half" size={20} className="star-half" />);
     }
 
     return stars;
@@ -129,24 +110,26 @@ const SearchResults = () => {
     <section className="place">
       <FilterComponent onRatingChange={handleRatingChange} />
       <div className="places_container">
-        <h2 style={{ marginBottom: "32px" }}>
-          Hasil Pencarian : {searchQuery}
-        </h2>
+        <div className="filter-bar">
+          <input
+            type="text"
+            placeholder="Search..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </div>
         <div className="places-list">
           {places
-            .filter((place) =>
-              searchQuery
-                ? place.nama_tempat
-                    .toLowerCase()
-                    .includes(searchQuery.toLowerCase())
-                : false
-            )
-            .filter((place) =>
-              selectedRating
+            .filter((place) => {
+              const matchesSearchTerm = place.nama_tempat
+                .toLowerCase()
+                .includes(searchTerm.toLowerCase());
+              const matchesRating = selectedRating
                 ? place.averageRating >= selectedRating - 1 &&
                   place.averageRating <= selectedRating
-                : true
-            )
+                : true;
+              return matchesSearchTerm && matchesRating;
+            })
             .map((place) => (
               <div className="place-card" key={place.id_tempat}>
                 <Link to={`/places/${place.id_tempat}`} className="link_tempat">
@@ -194,4 +177,4 @@ const SearchResults = () => {
   );
 };
 
-export default SearchResults;
+export default Kalimantan;

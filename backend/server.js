@@ -37,7 +37,7 @@ app.use("/gambar_komentar", express.static("public/gambar_komentar"));
 // Konfigurasi Session Store menggunakan Knex
 const store = new KnexSessionStore({
   knex,
-  tablename: "sessions", // Nama tabel untuk menyimpan sesi
+  tablename: "sessions",
 });
 
 app.use(
@@ -47,34 +47,34 @@ app.use(
     saveUninitialized: false,
     store,
     cookie: {
-      maxAge: 1000 * 60 * 60, // Sesi kedaluwarsa setelah 1 jam
+      maxAge: 1000 * 60 * 60,
       secure: false, // Set ke true jika menggunakan HTTPS
     },
   })
 );
 
 // Import & Gunakan Routes
-const jakartaRoutes = require("./routes/jakarta");
-const bogorRoutes = require("./routes/bogor");
-const depokRoutes = require("./routes/depok");
-const tangerangRoutes = require("./routes/tangerang");
-const bekasiRoutes = require("./routes/bekasi");
-const bandungRoutes = require("./routes/bandung");
+const jawaRoutes = require("./routes/jawa");
+const sumatraRoutes = require("./routes/sumatra");
+const kalimantanRoutes = require("./routes/kalimantan");
+const sulawesiRoutes = require("./routes/sulawesi");
+const papuaRoutes = require("./routes/papua");
+const baliRoutes = require("./routes/bali");
 const semuaTempatRoutes = require("./routes/SemuaTempat");
 const authRoutes = require("./auth");
-const parkRoutes = require("./routes/park");
+const kategoriTempatRoutes = require("./routes/kategori_tempat");
 const wishlistRoutes = require("./routes/wishlist");
 const adminPlaceRoutes = require("./routes/adminPlace");
 
-app.use("/jakarta", jakartaRoutes);
-app.use("/bogor", bogorRoutes);
-app.use("/depok", depokRoutes);
-app.use("/tangerang", tangerangRoutes);
-app.use("/bekasi", bekasiRoutes);
-app.use("/bandung", bandungRoutes);
+app.use("/jawa", jawaRoutes);
+app.use("/sumatra", sumatraRoutes);
+app.use("/kalimantan", kalimantanRoutes);
+app.use("/sulawesi", sulawesiRoutes);
+app.use("/papua", papuaRoutes);
+app.use("/bali", baliRoutes);
 app.use("/place", semuaTempatRoutes);
 app.use("/auth", authRoutes);
-app.use("/park", parkRoutes);
+app.use("/kategoritempat", kategoriTempatRoutes);
 app.use("/wishlist", wishlistRoutes);
 app.use("/adminPlace", adminPlaceRoutes);
 

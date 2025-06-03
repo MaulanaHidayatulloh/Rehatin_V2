@@ -43,7 +43,11 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  text-shadow: 1px 3px 1px rgba(5, 5, 5, 0.5);
+  text-shadow:
+    -1px -1px 0 black,
+    1px -1px 0 black,
+    -1px 1px 0 black,
+    1px 1px 0 black;
 }
 
 .text-wrap:hover {
@@ -55,28 +59,28 @@
     padding: 3rem;
     padding-bottom: 6rem;
   }
-  
+
   .kategori-title {
     padding-left: 0.7rem;
     gap: 1.5rem;
   }
-  
+
   .kategori-title h2 {
     font-weight: bold;
     font-size: 2rem;
     margin: 3rem 0;
   }
-  
+
   .kategori .img {
     height: 12rem;
     width: 100%;
   }
-  
+
   .card-kategori {
     width: 12rem;
     height: 12rem;
   }
-  
+
   .cardCategory-text {
     font-size: 1.7rem;
   }
@@ -87,7 +91,7 @@
     padding: 3rem;
     padding-bottom: 4rem;
   }
-  
+
   .kategori-title {
     padding-left: 0.7rem;
     gap: 1.5rem;
@@ -101,24 +105,24 @@
   .card-img-overlay {
     width: 12rem;
   }
-  
+
   .kategori-title h2 {
     font-weight: bold;
     font-size: 22px;
     margin: 2rem 0;
   }
-  
+
   .kategori .img {
     height: 12rem;
     width: 100%;
     justify-content: center;
   }
-  
+
   .card-kategori .col {
     width: 12rem;
     height: 12rem;
   }
-  
+
   .cardCategory-text {
     font-size: 1.5rem;
     top: 50%;
@@ -132,14 +136,14 @@
     padding-bottom: 4rem;
     overflow: hidden;
   }
-  
+
   .kategori-title {
     display: flex;
     align-items: center;
     padding-left: 0rem;
     gap: 1.5rem;
   }
-  
+
   .kategori-title h2 {
     font-weight: bold;
     font-size: 15px;
@@ -147,7 +151,7 @@
     text-align: left;
   }
 
-  .kategori-title img{
+  .kategori-title img {
     width: 30px;
   }
 
@@ -164,12 +168,12 @@
     width: 100%;
     justify-content: center;
   }
-  
+
   .card-kategori {
     width: 10rem;
     height: 10rem;
   }
-  
+
   .cardCategory-text {
     font-size: 1.5rem;
     top: 50%;
@@ -183,14 +187,14 @@
     padding-bottom: 4rem;
     overflow: hidden;
   }
-  
+
   .kategori-title {
     display: flex;
     align-items: center;
     padding-left: 0rem;
     gap: 1.5rem;
   }
-  
+
   .kategori-title h2 {
     font-weight: bold;
     font-size: 15px;
@@ -198,7 +202,7 @@
     text-align: left;
   }
 
-  .kategori-title img{
+  .kategori-title img {
     width: 20px;
   }
 
@@ -210,18 +214,18 @@
   .card-img-overlay {
     width: 10rem;
   }
-  
+
   .kategori .img {
     height: 10rem;
     width: 10rem;
     justify-content: center;
   }
-  
+
   .card-kategori {
     width: 10rem;
     height: 10rem;
   }
-  
+
   .cardCategory-text {
     font-size: 1rem;
     top: 50%;

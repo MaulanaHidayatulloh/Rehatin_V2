@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
@@ -8,6 +9,8 @@ import axios from "axios";
 function Login({ show, handleClose, setUser, setIsLoggedIn }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loginError, setLoginError] = useState("");
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -30,14 +33,16 @@ function Login({ show, handleClose, setUser, setIsLoggedIn }) {
         localStorage.setItem("user", JSON.stringify(user));
         localStorage.setItem("isLoggedIn", true);
         handleClose();
-      } else {
-        console.error("Login failed: No user data received");
+        if (user.level === 1) {
+          navigate("/admin-home");
+        }
       }
     } catch (error) {
       console.error(
         "Login failed:",
-        error.response ? error.response.data.error : error.message
+        error.response?.data?.error || error.message
       );
+      setLoginError(error.response?.data?.error || "Gagal login, coba lagi");
     }
   };
 
@@ -47,6 +52,9 @@ function Login({ show, handleClose, setUser, setIsLoggedIn }) {
       <Modal.Body>
         <Modal.Title className="p-3 text-center fw-bold">Rehatin</Modal.Title>
         <Form className="py-2 px-5" onSubmit={handleLogin}>
+          {loginError && (
+            <div className="text-danger mb-3 text-center">{loginError}</div>
+          )}
           <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
             <Form.Label className="fw-bold">Email Address</Form.Label>
             <Form.Control

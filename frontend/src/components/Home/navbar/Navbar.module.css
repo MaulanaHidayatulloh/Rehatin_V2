@@ -84,9 +84,21 @@
 
 .hamburgerMenu {
   display: none;
-  margin-left: 1rem;
   font-size: 2rem;
-  color: #000;
+  color: #fff;
+}
+
+.userName {
+  font-size: 1.1rem;
+  padding-left: 1rem;
+  padding-right: 0.2rem;
+}
+
+.userPhoto {
+  width: 50px;
+  height: 50px;
+  border-radius: 100%;
+  border: 1px solid #c4c4c4;
 }
 
 @media screen and (max-width: 768px) {
@@ -97,7 +109,7 @@
   .navbarNav {
     position: absolute;
     top: 100%;
-    right: -100%;
+    left: -100%;
     background-color: #fff;
     width: 20rem;
     height: 100vh;
@@ -108,7 +120,11 @@
   }
 
   .navbarNav.active {
-    right: 0;
+    left: 0;
+  }
+
+  .navbarLogo img {
+    width: 9rem;
   }
 
   .nav {
@@ -126,5 +142,32 @@
 
   .nav:hover {
     color: var(--color-Fifth);
+  }
+}
+
+@media screen and (max-width: 426px) {
+  .navbarLogo img {
+    display: none;
+  }
+
+  .userPhoto {
+    width: 40px;
+    height: 40px;
+  }
+
+  .userName {
+    font-size: 0.8rem;
+    padding-left: 0.5rem;
+    padding-right: 0;
+  }
+
+  .login {
+    padding: 0.5rem 1.5rem;
+    margin-left: 0;
+    font-size: 0.8rem;
+  }
+
+  .hamburgerMenu {
+    font-size: 1.5rem;
   }
 }

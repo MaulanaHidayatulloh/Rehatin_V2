@@ -27,36 +27,36 @@ function Footer() {
                 <h5>Place</h5>
                 <ul>
                   <li>
-                    <a href="/category/1">Park</a>
+                    <a href="/category/1">Alam</a>
                   </li>
                   <li>
-                    <a href="/category/2">Museum</a>
+                    <a href="/category/2">Budaya</a>
                   </li>
                   <li>
-                    <a href="/category/3">Eatry</a>
+                    <a href="/category/3">Kuliner</a>
                   </li>
                   <li>
-                    <a href="/category/4">Playground</a>
+                    <a href="/category/4">Bermain</a>
                   </li>
                 </ul>
               </Col>
               <Col sm={2}>
-                <h5>About Rehatin</h5>
+                <h5>Tentang Rehatin</h5>
                 <ul>
                   <li>
-                    <a href="/aboutUs">About Us</a>
+                    <a href="/aboutUs#main-about">Tentang Kami</a>
                   </li>
                   <li>
-                    <a href="">Contact Us</a>
+                    <a href="/aboutUs#visimisi">Visi Misi</a>
                   </li>
                   <li>
-                    <a href="">Help center</a>
+                    <a href="/aboutUs#kontak">Kontak Kami</a>
                   </li>
                 </ul>
               </Col>
 
               <Col sm={2}>
-                <h5>Follow Us On</h5>
+                <h5>Ikuti Kami</h5>
                 <ul>
                   <li className="icon-follow">
                     <a href="">
@@ -92,9 +92,10 @@ function Footer() {
               </Col>
 
               <Col sm={2}>
-                <h5>Address</h5>
+                <h5>Alamat</h5>
                 <p className="text-align-justify">
-                  JL TB Simatupang Kav 1-S, Cilandak Timur, Kota Jakarta Selatan
+                  JL Semanan Raya RT 01/ RW 02, Kecamatan Kalideres, Kota
+                  Jakarta Barat
                 </p>
               </Col>
             </Row>
@@ -105,7 +106,7 @@ function Footer() {
           <Container>
             <Navbar.Collapse className="justify-content-center">
               <Navbar.Text className="copyright-text text-white">
-                Copyright &#169; 2024. All rights reserved.
+                Copyright &#169; 2025. All rights reserved.
               </Navbar.Text>
             </Navbar.Collapse>
           </Container>

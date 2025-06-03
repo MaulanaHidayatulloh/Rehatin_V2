@@ -12,12 +12,12 @@ import PestaBebasBerselancar from "./pages/InformationEvent/PestaBebasBerselanca
 import TheSoundsProject from "./pages/InformationEvent/TheSoundsProject";
 import PekanRayaJakarta from "./pages/InformationEvent/PekanRayaJakarta";
 import JDMFestBandung from "./pages/InformationEvent/JDMFestBandung";
-import Jakarta from "./pages/Places/jakarta";
-import Bogor from "./pages/Places/bogor";
-import Depok from "./pages/Places/depok";
-import Tangerang from "./pages/Places/tangerang";
-import Bekasi from "./pages/Places/bekasi";
-import Bandung from "./pages/Places/bandung";
+import Jawa from "./pages/Places/jawa";
+import Sumatra from "./pages/Places/sumatra";
+import Kalimantan from "./pages/Places/kalimantan";
+import Sulawesi from "./pages/Places/sulawesi";
+import Papua from "./pages/Places/papua";
+import Bali from "./pages/Places/bali";
 import PlaceDetails from "./pages/PlaceDetails";
 import NavbarCom from "./components/Home/navbar/navbar";
 import Profile from "./pages/Profile";
@@ -71,12 +71,12 @@ function App() {
           <Route path="/TheSoundsProject" element={<TheSoundsProject />} />
           <Route path="/PekanRayaJakarta" element={<PekanRayaJakarta />} />
           <Route path="/JDMFestBandung" element={<JDMFestBandung />} />
-          <Route path="/Jakarta" element={<Jakarta />} />
-          <Route path="/Bogor" element={<Bogor />} />
-          <Route path="/Depok" element={<Depok />} />
-          <Route path="/Tangerang" element={<Tangerang />} />
-          <Route path="/Bekasi" element={<Bekasi />} />
-          <Route path="/Bandung" element={<Bandung />} />
+          <Route path="/Jawa" element={<Jawa />} />
+          <Route path="/Sumatra" element={<Sumatra />} />
+          <Route path="/Kalimantan" element={<Kalimantan />} />
+          <Route path="/Sulawesi" element={<Sulawesi />} />
+          <Route path="/Papua" element={<Papua />} />
+          <Route path="/Bali" element={<Bali />} />
           <Route
             path="/places/:id"
             element={<PlaceDetails user={user} isLoggedIn={isLoggedIn} />}
@@ -115,7 +115,7 @@ function App() {
             backgroundColor: "#ffffff",
             fontSize: 17,
             starterPrompts: [
-              "tempat wisata terbaik di Jakarta",
+              "tempat wisata terbaik di pulau Jawa",
               "tempat wisata dengan rating tertinggi",
             ],
             starterPromptFontSize: 15,

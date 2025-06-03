@@ -10,9 +10,17 @@ function Register() {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [registerError, setRegisterError] = useState("");
 
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleShow = () => {
+    setShow(true);
+    setFirstName("");
+    setLastName("");
+    setEmail("");
+    setPassword("");
+    setRegisterError("");
+  };
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -28,9 +36,11 @@ function Register() {
       console.log("Registration successful:", response.data);
       handleClose();
     } catch (error) {
-      console.error("Registration failed:", error.response.data.error);
-      handleClose();
-      // Optionally display an error message to the user
+      const errorMsg =
+        error.response?.data?.error ||
+        "Email Tersebut Telah digunakan oleh orang lain!";
+      console.error("Registration failed:", errorMsg);
+      setRegisterError(errorMsg);
     }
   };
 
@@ -60,6 +70,11 @@ function Register() {
             Rehatin
           </Modal.Title>
           <Form className="p-5" onSubmit={handleRegister}>
+            {registerError && (
+              <div className="alert alert-danger text-center" role="alert">
+                {registerError}
+              </div>
+            )}
             <Form.Group className="mb-3" controlId="inputfirstname">
               <Form.Label className="fw-bold">First Name</Form.Label>
               <Form.Control
