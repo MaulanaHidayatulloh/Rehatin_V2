@@ -8,7 +8,7 @@ router.get("/category/:categoryId", async (req, res) => {
 
   try {
     const [places] = await database.query(
-      "SELECT * FROM tempat_wisata WHERE kategori_tempat = ?",
+      "SELECT * FROM tempat_wisata WHERE kategori_tempat = ? ORDER BY nama_tempat ASC",
       [categoryId]
     );
 
@@ -25,7 +25,7 @@ router.get("/category/:categoryId/location/:locationId", async (req, res) => {
 
   try {
     const [places] = await database.query(
-      "SELECT * FROM tempat_wisata WHERE kategori_tempat = ? AND kategori_lokasi = ?",
+      "SELECT * FROM tempat_wisata WHERE kategori_tempat = ? AND kategori_lokasi = ? ORDER BY nama_tempat ASC",
       [categoryId, locationId]
     );
 

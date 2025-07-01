@@ -166,7 +166,9 @@ const Papua = () => {
                   </div>
                   <div className="place_harga">
                     <p>Perkiraan Harga :</p>
-                    <p id="nilai_harga">Rp {place.harga}</p>
+                    <p id="nilai_harga">
+                      Rp {Number(place.harga).toLocaleString("id-ID")}
+                    </p>
                   </div>
                 </Link>
               </div>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import "./tambahTempat.css";
 
 const TambahTempat = () => {
   const navigate = useNavigate();
@@ -12,18 +13,17 @@ const TambahTempat = () => {
     harga: "",
     deskripsi: "",
     gambar_path: null,
-    gambar_map: null,
     link_map: "",
   });
 
   const [kategoriTempat, setKategoriTempat] = useState([]);
   const [kategoriLokasi, setKategoriLokasi] = useState([]);
+  const [previewGambarUtama, setPreviewGambarUtama] = useState(null);
 
   useEffect(() => {
     axios
       .get("http://localhost:8000/adminPlace/kategori-tempat")
       .then((res) => setKategoriTempat(res.data));
-
     axios
       .get("http://localhost:8000/adminPlace/kategori-lokasi")
       .then((res) => setKategoriLokasi(res.data));
@@ -31,10 +31,17 @@ const TambahTempat = () => {
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
+    const updatedValue = files ? files[0] : value;
+
     setFormData({
       ...formData,
-      [name]: files ? files[0] : value,
+      [name]: updatedValue,
     });
+
+    // Preview
+    if (name === "gambar_path" && files) {
+      setPreviewGambarUtama(URL.createObjectURL(files[0]));
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -56,8 +63,10 @@ const TambahTempat = () => {
     <section className="tambah-tempat">
       <h2>Tambah Tempat Wisata</h2>
       <form onSubmit={handleSubmit} encType="multipart/form-data">
+        <label htmlFor="nama_tempat">Nama Tempat :</label>
         <input
           type="text"
+          id="nama_tempat"
           name="nama_tempat"
           value={formData.nama_tempat}
           onChange={handleChange}
@@ -65,7 +74,9 @@ const TambahTempat = () => {
           required
         />
 
+        <label htmlFor="kategori_tempat">Kategori Tempat :</label>
         <select
+          id="kategori_tempat"
           name="kategori_tempat"
           value={formData.kategori_tempat}
           onChange={handleChange}
@@ -79,7 +90,9 @@ const TambahTempat = () => {
           ))}
         </select>
 
+        <label htmlFor="kategori_lokasi">Kategori Lokasi :</label>
         <select
+          id="kategori_lokasi"
           name="kategori_lokasi"
           value={formData.kategori_lokasi}
           onChange={handleChange}
@@ -93,8 +106,10 @@ const TambahTempat = () => {
           ))}
         </select>
 
+        <label htmlFor="lokasi">Lokasi :</label>
         <input
           type="text"
+          id="lokasi"
           name="lokasi"
           value={formData.lokasi}
           onChange={handleChange}
@@ -102,8 +117,10 @@ const TambahTempat = () => {
           required
         />
 
+        <label htmlFor="harga">Harga :</label>
         <input
           type="text"
+          id="harga"
           name="harga"
           value={formData.harga}
           onChange={handleChange}
@@ -111,7 +128,9 @@ const TambahTempat = () => {
           required
         />
 
+        <label htmlFor="deskripsi">Deskripsi :</label>
         <textarea
+          id="deskripsi"
           name="deskripsi"
           value={formData.deskripsi}
           onChange={handleChange}
@@ -119,26 +138,27 @@ const TambahTempat = () => {
           required
         ></textarea>
 
-        <label>Gambar Utama:</label>
+        <label htmlFor="gambar_path">Gambar :</label>
         <input
           type="file"
+          id="gambar_path"
           name="gambar_path"
           accept="image/*"
           onChange={handleChange}
           required
         />
+        {previewGambarUtama && (
+          <img
+            src={previewGambarUtama}
+            alt="Preview Gambar Utama"
+            className="preview-img"
+          />
+        )}
 
-        <label>Gambar Map:</label>
-        <input
-          type="file"
-          name="gambar_map"
-          accept="image/*"
-          onChange={handleChange}
-          required
-        />
-
+        <label htmlFor="link_map">Link Map :</label>
         <input
           type="text"
+          id="link_map"
           name="link_map"
           value={formData.link_map}
           onChange={handleChange}

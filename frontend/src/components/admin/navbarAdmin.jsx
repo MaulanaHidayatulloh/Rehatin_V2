@@ -129,7 +129,7 @@ function NavbarCom({ onLogout }) {
 
   return (
     <header className={styles.header}>
-      <a className={styles.navbarLogo}>
+      <a className={styles.navbarLogo} href="/">
         <img src="../public/logo/logo_rehatin.png" alt="logo" />
       </a>
       <nav className={styles.navbar}>

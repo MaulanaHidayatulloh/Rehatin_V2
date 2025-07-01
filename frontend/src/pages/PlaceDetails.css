@@ -173,7 +173,7 @@
 .kumpulanReview_container {
   height: 31rem;
   overflow: auto;
-  padding-right: 2rem;
+  padding-right: 1rem;
   padding-left: 2rem;
   text-align: left;
 }
@@ -190,7 +190,6 @@
   display: flex;
   align-items: center;
   gap: 20px;
-  /* background-color: aqua; */
 }
 
 .Kumpulanreview_profil .pemisah-nama-tanggal p {
@@ -200,4 +199,14 @@
 .RatingAndReview {
   padding-top: 1rem;
   font-weight: bold;
+}
+
+.PlaceDetail input[type="file"] {
+  padding: 10px;
+  background-color: #ffffff;
+  border: 2px solid #000;
+  border-radius: 8px;
+  color: #333;
+  width: 60%;
+  cursor: pointer;
 }

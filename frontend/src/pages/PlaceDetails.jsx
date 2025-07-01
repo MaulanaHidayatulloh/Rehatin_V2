@@ -117,7 +117,10 @@ const PlaceDetail = ({ user, isLoggedIn }) => {
           <div className="placeDetail_info">
             <div className="placeDetail_title">
               <h1>{place.nama_tempat}</h1>
-              <p>Perkiraan Harga: Rp. {place.harga}</p>
+              <p>
+                Perkiraan Harga: Rp{" "}
+                {Number(place.harga).toLocaleString("id-ID")}
+              </p>
             </div>
             <p>{renderRating(averageRating)}</p>
             <p style={{ color: "#5b5555" }}>{place.deskripsi}</p>
@@ -125,10 +128,16 @@ const PlaceDetail = ({ user, isLoggedIn }) => {
         </div>
 
         <div className="placeDetail_map">
-          <a href={place.link_map} style={{ textDecoration: "none" }}>
-            <img src={place.gambarMap} alt={place.nama_tempat} />
-            <p>{place.lokasi}</p>
-          </a>
+          <iframe
+            src={place.link_map}
+            width="100%"
+            height="500"
+            style={{ border: 0 }}
+            allowFullScreen=""
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+          />
+          <p>{place.lokasi}</p>
         </div>
 
         <div className="placeDetail_review">
@@ -176,7 +185,7 @@ const PlaceDetail = ({ user, isLoggedIn }) => {
               <label style={{ fontStyle: "italic" }}>
                 {" "}
                 (Input Rating 1 - 5, boleh tambahkan dua angka di belakang koma,
-                misal 4,65 ){" "}
+                misal 4.65 ){" "}
               </label>
             </div>
             <div className="inputGambarUlasan">

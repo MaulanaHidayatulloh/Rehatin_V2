@@ -32,7 +32,7 @@ router.get("/:id", async (req, res) => {
   try {
     // Fetch place details
     const [placeResults] = await database.query(
-      `SELECT id_tempat, nama_tempat, kategori_lokasi, lokasi, harga, deskripsi, gambar_path, gambar_map, link_map
+      `SELECT id_tempat, nama_tempat, kategori_lokasi, lokasi, harga, deskripsi, gambar_path, link_map
       FROM tempat_wisata WHERE id_tempat = ?;`,
       [id]
     );
@@ -44,9 +44,6 @@ router.get("/:id", async (req, res) => {
     const place = placeResults[0];
     place.gambar_path = place.gambar_path
       ? `http://localhost:8000/uploads/${place.gambar_path}`
-      : null;
-    place.gambarMap = place.gambar_map
-      ? `http://localhost:8000/uploads/${place.gambar_map}`
       : null;
 
     // Fetch user reviews

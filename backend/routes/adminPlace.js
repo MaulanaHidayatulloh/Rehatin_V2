@@ -13,17 +13,17 @@ router.get("/", async (req, res) => {
     const [results] = await database.query(`
   SELECT 
     id_tempat, nama_tempat, kategori_tempat, kategori_lokasi, 
-    lokasi, harga, deskripsi, gambar_path, gambar_map, link_map, rating
+    lokasi, harga, deskripsi, gambar_path, link_map, rating
   FROM 
     tempat_wisata 
   ORDER BY 
-    rating DESC;
+    nama_tempat ASC;
     `);
 
     const places = results.map((place) => ({
       ...place,
       average_rating: parseFloat(place.rating).toFixed(1),
-      gambar_path: `http://localhost:8000/uploads/${place.gambar_path}`, // Path gambar otomatis
+      gambar_path: `http://localhost:8000/uploads/${place.gambar_path}`,
     }));
 
     res.json(places);
@@ -69,8 +69,7 @@ router.get("/:id", async (req, res) => {
 
     res.json({
       ...tempat,
-      gambar_path: `http://localhost:8000/uploads/${tempat.gambar_path}`,
-      gambar_map: `http://localhost:8000/uploads/${tempat.gambar_map}`,
+      gambar_path: tempat.gambar_path,
     });
   } catch (err) {
     console.error(err);
@@ -96,10 +95,7 @@ const upload = multer({ storage });
 // Route PUT untuk edit tempat wisata
 router.put(
   "/:id",
-  upload.fields([
-    { name: "gambar_path", maxCount: 1 },
-    { name: "gambar_map", maxCount: 1 },
-  ]),
+  upload.fields([{ name: "gambar_path", maxCount: 1 }]),
   async (req, res) => {
     try {
       const id = req.params.id;
@@ -115,14 +111,9 @@ router.put(
 
       // Cek apakah ada file baru diupload
       let gambar_path = null;
-      let gambar_map = null;
 
       if (req.files["gambar_path"]) {
         gambar_path = req.files["gambar_path"][0].filename;
-      }
-
-      if (req.files["gambar_map"]) {
-        gambar_map = req.files["gambar_map"][0].filename;
       }
 
       // Buat query update dinamis sesuai file yang dikirim
@@ -143,11 +134,6 @@ router.put(
         values.push(gambar_path);
       }
 
-      if (gambar_map) {
-        query += ", gambar_map = ?";
-        values.push(gambar_map);
-      }
-
       query += " WHERE id_tempat = ?";
       values.push(id);
 
@@ -163,10 +149,7 @@ router.put(
 // Route POST untuk tambah tempat wisata
 router.post(
   "/",
-  upload.fields([
-    { name: "gambar_path", maxCount: 1 },
-    { name: "gambar_map", maxCount: 1 },
-  ]),
+  upload.fields([{ name: "gambar_path", maxCount: 1 }]),
   async (req, res) => {
     try {
       const {
@@ -180,13 +163,12 @@ router.post(
       } = req.body;
 
       const gambar_path = req.files["gambar_path"]?.[0]?.filename || null;
-      const gambar_map = req.files["gambar_map"]?.[0]?.filename || null;
 
       await database.query(
         `
       INSERT INTO tempat_wisata 
-      (nama_tempat, kategori_tempat, kategori_lokasi, lokasi, harga, deskripsi, gambar_path, gambar_map, link_map, rating)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      (nama_tempat, kategori_tempat, kategori_lokasi, lokasi, harga, deskripsi, gambar_path, link_map, rating)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
       `,
         [
           nama_tempat,
@@ -196,7 +178,6 @@ router.post(
           harga,
           deskripsi,
           gambar_path,
-          gambar_map,
           link_map,
           0, // default rating
         ]

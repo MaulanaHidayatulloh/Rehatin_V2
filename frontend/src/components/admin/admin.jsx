@@ -92,7 +92,8 @@ const Admin = () => {
             })
             .map((place) => (
               <div className="admin-card" key={place.id_tempat}>
-                <Link to={`/places/${place.id_tempat}`} className="link_tempat">
+                {/* <Link to={`/places/${place.id_tempat}`} className="link_tempat"> */}
+                <div className="link_tempat">
                   <div className="admin_gambar">
                     <img src={place.gambar_path} alt={place.nama_tempat} />
                   </div>
@@ -106,9 +107,12 @@ const Admin = () => {
                       <GeoAltFill className="mapEvent" /> {place.lokasi}
                     </p>
                     <p className="admin_deskripsi">{place.deskripsi}...</p>
-                    <p>Perkiraan Harga : {place.harga}</p>
+                    <p>
+                      Perkiraan Harga : Rp{" "}
+                      {Number(place.harga).toLocaleString("id-ID")}
+                    </p>
                   </div>
-                </Link>
+                </div>
 
                 <div className="admin_edithapus">
                   <Link to={`/edit-tempat/${place.id_tempat}`}>

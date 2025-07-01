@@ -129,7 +129,7 @@ const SearchResults = () => {
     <section className="place">
       <FilterComponent onRatingChange={handleRatingChange} />
       <div className="places_container">
-        <h2 style={{ marginBottom: "32px" }}>
+        <h2 style={{ marginBottom: "32px", fontWeight: "bold" }}>
           Hasil Pencarian : {searchQuery}
         </h2>
         <div className="places-list">

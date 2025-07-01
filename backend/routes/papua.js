@@ -16,19 +16,23 @@ router.get("/", async (req, res) => {
         AVG(up.rating) as average_rating
       FROM 
         tempat_wisata th 
-      JOIN 
+      LEFT JOIN 
         ulasan_pengguna up 
       ON 
         th.id_tempat = up.tempat_id
       WHERE
         th.kategori_lokasi = 5
       GROUP BY
-        th.id_tempat;
+        th.id_tempat
+      ORDER BY
+        th.nama_tempat ASC;
     `);
 
     const places = results.map((place) => ({
       ...place,
-      average_rating: parseFloat(place.average_rating).toFixed(1),
+      average_rating: place.average_rating
+        ? parseFloat(place.average_rating).toFixed(1)
+        : "0.0",
       gambar_path: `http://localhost:8000/uploads/${place.gambar_path}`,
     }));
 
